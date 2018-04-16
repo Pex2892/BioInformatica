@@ -1,0 +1,237 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home - BioCT</title>
+        <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-icon.png">
+        <link rel="shortcut icon" href="../static/images/favicon.png">
+
+        <link rel="stylesheet" href="../static/assets/css/normalize.css">
+        <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../static/assets/css/themify-icons.css">
+        <link rel="stylesheet" href="../static/assets/css/flag-icon.min.css">
+        <link rel="stylesheet" href="../static/assets/css/cs-skin-elastic.css">
+        <!-- <link rel="stylesheet" href="../static/assets/css/bootstrap-select.less"> -->
+        <link rel="stylesheet" href="../static/assets/scss/style.css">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+		<script src="{{ url_for('static', filename='assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
+
+        <script src="https://unpkg.com/sweetalert2@7.11.0/dist/sweetalert2.all.js"></script>
+    </head>
+	<body>
+		<!-- Left Panel -->
+    	<aside id="left-panel" class="left-panel">
+        	<nav class="navbar navbar-expand-sm navbar-default">
+	            <div class="navbar-header">
+	                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+	                    <i class="fa fa-bars"></i>
+	                </button>
+	                <a class="navbar-brand" href="./"><img src="../static/images/logo.png" alt="Logo"></a>
+	                <a class="navbar-brand hidden" href="./"><img src="../static/images/logo2.png" alt="Logo"></a>
+	            </div>
+	            <div id="main-menu" class="main-menu collapse navbar-collapse">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <a href="/"> <i class="menu-icon fa fa-home"></i>Dashboard</a>
+	                    </li>
+	                    <h3 class="menu-title">Analisi Dati</h3><!-- /.menu-title -->
+	                    <li>
+	                        <a href="/biomarkers"> <i class="menu-icon fa fa-copyright"></i>Biomarcatori</a>
+	                        <a href="/MITHrIL"> <i class="menu-icon fa fa-registered"></i>MITHrIL</a>
+	                    </li>
+	                </ul>
+	            </div><!-- /.navbar-collapse -->
+	        </nav>
+	    </aside><!-- /#left-panel -->
+
+    	<!-- Right Panel -->
+    	<div id="right-panel" class="right-panel">
+	        <div class="breadcrumbs">
+	            <div class="col-sm-4">
+	                <div class="page-header float-left">
+	                    <div class="page-title">
+	                        <h1>Dashboard</h1>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+        	<div class="content mt-3">
+            	<div class="animated fadeIn">
+                	<div class="row">
+                  		<div class="col-lg-6">
+                    		<div class="card">
+                        		<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-youtube fa-lg"></i>&nbsp;Tumor Data Downloader</strong>
+                       		 	</div>
+                        		<div class="card-body">
+                          			<!-- Credit Card -->
+                         			<div id="pay-invoice">
+                              			<div class="card-body card-block">
+                                  			<div class="card-title">
+                                      			<h4 class="text-center">Seleziona una tipologia di tumore e scaricare i relativi dati associati!</h4>
+                                  			</div>
+                                  			<hr>
+											<!--<div class="form-group">
+												<label class=" form-control-label">URL del Video:</label>
+												<input type="text" name="url_video" id="url_video" class="form-control" required>
+											</div>-->
+
+		                                    <div class="row form-group">
+		                            			<div class="col-12 col-md-12">
+		                            				<label class="form-control-label">Tipologia tumore:</label>
+		                              				<select name="typeTumor" class="form-control" required>
+		                                				<option value="">Seleziona...</option>
+						                                <option value="0">Thymoma (THYM)</option>
+						                                <option value="1">Thyroid Carcinoma (THCA)</option>
+						                                <option value="2">Sarcoma (SARC)</option>
+														<option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
+		                              				</select>
+		                            			</div>
+		                         			</div>
+
+											<div class="row form-group">
+		                            			<div class="col-12 col-md-12">
+		                            				<label class="form-control-label">Opzioni:</label>
+                                                </div>
+                                                <div class="col-12 col-md-12">
+                                                    <div class="form-check-inline form-check">
+                                                        <label for="inline-checkbox1" class="form-check-label ">
+                                                            <input id="inline-checkbox1" name="biospecimen_clinical" value="option1" class="form-check-input" type="checkbox">Biospecimen & Clinical
+                                                        </label>&nbsp;&nbsp;
+                                                        <label for="inline-checkbox2" class="form-check-label ">
+                                                            <input id="inline-checkbox2" name="rnaseq" value="option2" class="form-check-input" type="checkbox">RNA Seq.
+                                                        </label>&nbsp;&nbsp;
+                                                        <label for="inline-checkbox3" class="form-check-label ">
+                                                            <input id="inline-checkbox3" name="mirnaseq" value="option3" class="form-check-input" type="checkbox">miRNA Seq.
+                                                        </label>
+                                                    </div>
+		                            			</div>
+		                         			</div>
+
+                          					<div class="row form-group">
+                            					<div class="col col-md-2">
+                            						<label for="disabled-input" class="form-control-label">Salva come:</label>
+                            					</div>
+                            					<div class="col-12 col-md-10">
+                            						<input type="text" id="disabled-input" name="disabled-input" placeholder="./path_progetto/datasetTCGA/" disabled="" class="form-control">
+                            					</div>
+                          					</div>
+                                    		<div>
+                                      			<button id="payment-button" onclick="downloadVideo()" class="btn btn-lg btn-danger btn-block">
+                                          			<i class="fa fa-download fa-lg"></i>&nbsp;SCARICA DATI
+                                      			</button>
+                                    		</div>
+                              			</div>
+                          			</div>
+                        		</div>
+                    		</div> <!-- .card -->
+                  		</div><!--/.col-->
+
+						<div class="col-lg-6">
+                        	<div class="card">
+                       			<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-film fa-lg"></i>&nbsp;Tumor Information</strong>
+                        		</div>
+                            	<img class="card-img-top" src="../static/images/placeholder.png" alt="Card image cap" height="300px">
+                            	<div class="card-body">
+                                	<h4 class="card-title mb-3 card_image">Titolo</h4>
+                                	<p class="card-text">Descrizione</p>
+                            	</div>
+                        	</div>
+                    	</div>
+            		</div><!-- .animated -->
+        		</div><!-- .content -->
+    		</div><!-- /#right-panel -->
+    	</div>
+			
+		<script>
+        	var idxTumor = "";
+        	var arrayInfo = [
+        	    ['Timoma', 'timoma.jpg', 'Il timoma è un tumore derivato dalle cellule epiteliali del timo, una malattia rara, famosa per le sue associazioni ancora misteriose con il disordine neuromuscolare chiamato Miastenia grave. Moltissime sono le malattie a cui si può associare la comparsa del tumore come l\'artrite reumatoide, l\'anemia perniciosa, la polimiosite, la tiroidite. È costituito da cellule differenziate, accompagnate da linfociti non tumorali sparsi in quantità più o meno abbondante, nel contesto delle cellule epiteliali. Rappresenta quantitativamente il 90% dei tumori del timo.', 'Timoma', 'THYM'],
+        	    ['Thyroid Carcinoma', 'thyroid_carcinoma.jpg', 'I tumori della tiroide possono essere benigni e maligni. Il tumore della tiroide è una patologia relativamente rara (1-2% delle neoplasie), ma in grande crescita negli ultimi anni: nel periodo 1973-2002 l\'incidenza è aumentata del 48% negli uomini e del 67% nelle donne. Il trattamento più efficace per i tumori tiroidei aggressivi è la rimozione chirurgica della ghiandola tiroidea (tiroidectomia), seguita dalla ablazione con iodio-131 radioattivo e dalla terapia di soppressione del TSH.', 'Tumore_della_tiroide', 'THCA'],
+        	    ['Sarcoma', 'sarcoma.jpg', 'I sarcomi sono tumori maligni del tessuto connettivo, vale a dire del tessuto di sostegno dell\'organismo. Pur essendo patologie relativamente rare, e costituendo una minima parte di tutte le neoplasie, essi possono essere classificati in numerosi sottotipi differenti. Tra essi, meno del 5% sono sarcomi dell\'apparato genito-urinario in occidente.', 'Sarcoma', 'SARC'],
+        	    ['Carcinoma epatocellulare', 'carcinomahepatico.jpg', 'Il carcinoma epatocellulare o epatocarcinoma (CEC o HCC) è la forma più comune di tumore del fegato. Nel mondo è l\'ottavo tipo di neoplasia solida più frequentemente riscontrata. Le morti attribuite a tale forma tumorale sono un milione all\'anno.', 'Carcinoma_epatocellulare', 'LIHC']
+        	];
+
+            $(function() {
+                $('select').on('change', function() {
+                    idxTumor = this.value;
+
+                    if(idxTumor != "") {
+                        $(".card-img-top").attr("src", "../static/images/tumor/"+arrayInfo[idxTumor][1]);
+						$(".card_image").text(arrayInfo[idxTumor][0]);
+
+						$(".card-text").html(arrayInfo[idxTumor][2]+"<br /><b><a href='https://it.wikipedia.org/wiki/"+arrayInfo[idxTumor][3]+"' target='_blank'>Continua a leggere su WikiPedia!</a></b>");
+                    }
+                })
+			});
+
+			function downloadVideo() {
+				var b_c = $('input[name="biospecimen_clinical"]').is(":checked");
+				var rnaseq = $('input[name="rnaseq"]').is(":checked");
+				var mirnaseq = $('input[name="mirnaseq"]').is(":checked");
+
+                if(idxTumor != "") {
+				    if(b_c || rnaseq || mirnaseq) {
+					    swal({
+                            title: '<i>Download</i> <u>avviato</u>',
+                            type: 'info',
+                            html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento del download.',
+                            showCloseButton: false,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        })
+
+                        $.post("/downloader", {typeTumor: arrayInfo[idxTumor][4], biocli: b_c, rnaseq: rnaseq, mirnaseq: mirnaseq}, function(data) {
+                            $(".swal2-container").remove();
+                            swal({
+                                title: '<i>Download</i> <u>finito</u>',
+                                type: data.type,
+                                html: data.mess,
+                                showCloseButton: true,
+                                showCancelButton: false,
+                                showConfirmButton: true,
+                                allowOutsideClick: true
+                            })
+                        }, "json");
+                    } else {
+                        swal({
+                            title: '<i>ERRORE</i>',
+                            type: 'error',
+                            html: 'Bisogna selezionare almeno un opzione!',
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        })
+                    }
+                } else {
+                    swal({
+                        title: '<i>ERRORE</i>',
+                        type: 'error',
+                        html: 'Bisogna selezionare almeno un tumore!',
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                }
+			}
+		</script>
+	</body>
+</html>
