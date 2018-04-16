@@ -194,7 +194,10 @@
                             showCloseButton: false,
                             showCancelButton: false,
                             showConfirmButton: false,
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
+                            onOpen: () => {
+								swal.showLoading()
+							}
                         })
 
                         $.post("/downloader", {typeTumor: arrayInfo[idxTumor][4], biocli: b_c, rnaseq: rnaseq, mirnaseq: mirnaseq}, function(data) {
