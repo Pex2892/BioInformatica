@@ -19,10 +19,11 @@ def downloadData(typeTumor, biocli, rnaseq, mirnaseq):
     #installare tutte le dipendenze richieste --> httr, rjson, RCurl, HGNChelper
 
     if biocli == 'true':
-        if not os.path.isdir("BiospecimenClinical"):
-            os.makedirs("BiospecimenClinical")  # creo cartella per la prima opzione
+        #non creo la cartella, perchè già viene creata dai dati scaricati
+        #if not os.path.isdir("BiospecimenClinical"):
+           # os.makedirs("BiospecimenClinical")  # creo cartella per la prima opzione
 
-        os.chdir("BiospecimenClinical")  # accedo alla directory appena creata
+        #os.chdir("BiospecimenClinical")  # accedo alla directory appena creata
 
         # scarico i dati inserendo codice R
         robjects.r('DownloadBiospecimenClinicalData(cancerType = "{0}")'.format(typeTumor))

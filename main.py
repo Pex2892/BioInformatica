@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 from dataset import *
 
-
 # ***** SETTINGS *****
+if not os.path.isdir('datasetTCGA'):
+    os.makedirs('datasetTCGA')
+
 app = Flask(__name__)
 
 
