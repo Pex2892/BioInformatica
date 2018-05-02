@@ -1,0 +1,417 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Biomarcatori - BioCT</title>
+        <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-icon.png">
+        <link rel="shortcut icon" href="../static/images/favicon.png">
+
+        <link rel="stylesheet" href="../static/assets/css/normalize.css">
+        <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../static/assets/css/themify-icons.css">
+        <link rel="stylesheet" href="../static/assets/css/flag-icon.min.css">
+        <link rel="stylesheet" href="../static/assets/css/cs-skin-elastic.css">
+        <!-- <link rel="stylesheet" href="../static/assets/css/bootstrap-select.less"> -->
+        <link rel="stylesheet" href="../static/assets/scss/style.css">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+		<script src="{{ url_for('static', filename='assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
+
+        <script src="https://unpkg.com/sweetalert2@7.11.0/dist/sweetalert2.all.js"></script>
+
+    </head>
+	<body>
+		<!-- Left Panel -->
+    	<aside id="left-panel" class="left-panel">
+        	<nav class="navbar navbar-expand-sm navbar-default">
+	            <div class="navbar-header">
+	                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+	                    <i class="fa fa-bars"></i>
+	                </button>
+	                <a class="navbar-brand" href="./"><img src="../static/images/logo.png" alt="Logo"></a>
+	                <a class="navbar-brand hidden" href="./"><img src="../static/images/logo2.png" alt="Logo"></a>
+	            </div>
+	            <div id="main-menu" class="main-menu collapse navbar-collapse">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <a href="/"> <i class="menu-icon fa fa-home"></i>Dashboard</a>
+	                    </li>
+	                    <h3 class="menu-title">Analisi Dati</h3><!-- /.menu-title -->
+	                    <li>
+	                        <a href="/biomarkers"> <i class="menu-icon fa fa-copyright"></i>Biomarcatori</a>
+	                        <a href="/MITHrIL"> <i class="menu-icon fa fa-registered"></i>MITHrIL</a>
+	                    </li>
+	                </ul>
+	            </div><!-- /.navbar-collapse -->
+	        </nav>
+	    </aside><!-- /#left-panel -->
+
+    	<!-- Right Panel -->
+    	<div id="right-panel" class="right-panel">
+	        <div class="breadcrumbs">
+	            <div class="col-sm-4">
+	                <div class="page-header float-left">
+	                    <div class="page-title">
+	                        <h1>Biomarcatori</h1>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+        	<div class="content mt-3">
+            	<div class="animated fadeIn">
+                	<div class="row">
+                  		<div class="col-lg-5">
+                    		<div class="card">
+                        		<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-database fa-lg"></i>&nbsp;Tumor Analysis </strong>
+                       		 	</div>
+                        		<div class="card-body">
+                          			<!-- Credit Card -->
+                         			<div id="pay-invoice">
+                              			<div class="card-body card-block">
+                                  			<div class="card-title">
+                                      			<h4 class="text-center">Seleziona una tipologia di tumore ed avvia la tua analisi!</h4>
+                                  			</div>
+                                  			<hr>
+											<!--<div class="form-group">
+												<label class=" form-control-label">URL del Video:</label>
+												<input type="text" name="url_video" id="url_video" class="form-control" required>
+											</div>-->
+
+		                                    <div class="row form-group">
+		                            			<div class="col-12 col-md-12">
+		                            				<label class="form-control-label">Tipologia tumore:</label>
+		                              				<select name="typeTumor" class="form-control" required>
+		                                				<option value="">Seleziona...</option>
+						                                <option value="0">Thymoma (THYM)</option>
+						                                <option value="1">Thyroid Carcinoma (THCA)</option>
+						                                <option value="2">Sarcoma (SARC)</option>
+														<option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
+		                              				</select>
+		                            			</div>
+		                         			</div>
+
+											<div class="row form-group">
+		                            			<div class="col-12 col-md-12">
+		                            				<label class="form-control-label">Opzioni:</label>
+                                                </div>
+                                                <div class="col-12 col-md-12">
+                                                    <div class="form-check-inline form-check">
+                                                        <label for="inline-checkbox2" class="form-check-label ">
+                                                            <input id="inline-checkbox2" name="data_seq" value="RNA" class="form-check-input" type="radio">RNA Seq.
+                                                        </label>&nbsp;&nbsp;
+                                                        <label for="inline-checkbox3" class="form-check-label ">
+                                                            <input id="inline-checkbox3" name="data_seq" value="miRNA" class="form-check-input" type="radio">miRNA Seq.
+                                                        </label>
+                                                    </div>
+		                            			</div>
+		                         			</div>
+
+											<div class="row form-group">
+		                            			<div class="col-12 col-md-12">
+		                            				<label class="form-control-label">File da analizzare:</label>
+		                              				<select name="fileTumor" id="idFileTumor" class="form-control" required>
+		                              				</select>
+		                            			</div>
+		                         			</div>
+
+                          					<!--<div class="row form-group">
+                            					<div class="col col-md-2">
+                            						<label for="disabled-input" class="form-control-label">Salva come:</label>
+                            					</div>
+                            					<div class="col-12 col-md-10">
+                            						<input type="text" id="disabled-input" name="disabled-input" placeholder="./path_progetto/datasetTCGA/" disabled="" class="form-control">
+                            					</div>
+                          					</div>-->
+                                    		<div>
+                                      			<button id="play_analysis" onclick="analysis(1)" class="btn btn-lg btn-danger btn-block">
+                                          			<i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
+                                      			</button>
+                                    		</div>
+                              			</div>
+                          			</div>
+                        		</div>
+                    		</div> <!-- .card -->
+                  		</div><!--/.col-->
+
+						<div class="optionAnalysis col-lg-4" style="visibility: hidden;">
+                        	<div class="card">
+                       			<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-info-circle fa-lg"></i>&nbsp;Options Analysis</strong>
+                        		</div>
+                            	<div class="card-body">
+									<div class="row form-group">
+										<div class="col col-md-12">
+											<div class="row form-group">
+												<div class="col col-md-6">
+													<label class="form-control-label">P.value massimo:</label>
+												</div>
+												<div class="col-md-6">
+													<input type="text" name="pvalue" class="form-control" value="0.5">
+												</div>
+											</div>
+
+											<div class="row form-group">
+												<div class="col col-md-6">
+													<label class="form-control-label">LogFoldChange minimo:</label>
+												</div>
+												<div class="col-md-6">
+													<input type="text" name="foldchange" class="form-control" value="1.5">
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row form-group">
+										<div class="col-12 col-md-12">
+											<label class="form-control-label">Tipologia Contrasti:</label>
+											<select name="typeContrasts" id="idTypeContrasts" class="form-control" required>
+                                                <option value="0">ALL (Default)</option>
+											</select>
+										</div>
+									</div>
+
+                                    <div>
+                                        <button onclick="analysis(2)" class="btn btn-lg btn-danger btn-block">
+                                            <i class="fa fa-heartbeat fa-lg"></i>&nbsp;APPLICA
+                                        </button>
+                                    </div>
+
+                            	</div>
+                        	</div>
+                    	</div>
+
+						<div class="optionBoxplot col-lg-3" style="visibility: hidden;">
+                        	<div class="card">
+                       			<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-info-circle fa-lg"></i>&nbsp;Options BoxPlot</strong>
+                        		</div>
+                            	<div class="card-body">
+									<div class="row form-group">
+										<div class="col-12 col-md-12">
+											<label class="form-control-label">Lista Geni:</label>
+											<select name="listGenes" id="idListGenes" class="form-control" required>
+
+											</select>
+										</div>
+									</div>
+
+                                    <div>
+                                        <button onclick="analysis(3)" class="btn btn-lg btn-danger btn-block">
+                                            <i class="fa fa-heartbeat fa-lg"></i>&nbsp;APPLICA
+                                        </button>
+                                    </div>
+                            	</div>
+                        	</div>
+                    	</div>
+
+
+            		</div><!-- .animated -->
+        		</div><!-- .content -->
+    		</div><!-- /#right-panel -->
+
+            <div class="content mt-3">
+            	<div class="animated fadeIn">
+                	<div class="row">
+                  		<div class="printHeatmap col-lg-4" style="visibility: hidden;">
+                    		<div class="card">
+                        		<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-database fa-lg"></i>&nbsp;Heatmap </strong>
+                       		 	</div>
+                        		<div class="card-body">
+                          			<!-- Credit Card -->
+                         			<div id="pay-invoe">
+                              			<div class="imgHeatmap card-body card-block">
+
+                              			</div>
+                          			</div>
+                        		</div>
+                    		</div> <!-- .card -->
+                  		</div><!--/.col-->
+
+						<div class="printListGenes col-lg-3" style="visibility: hidden;">
+                        	<div class="card">
+                       			<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-info-circle fa-lg"></i>&nbsp;Info Analysis and List Genes</strong>
+                        		</div>
+                            	<div class="infoAnalysis card-body">
+
+                            	</div>
+                        	</div>
+                    	</div>
+
+						<div class="printBoxplot col-lg-5" style="visibility: hidden;">
+                        	<div class="card">
+                       			<div class="card-header bg-dark">
+                            		<strong class="card-title text-light"><i class="fa fa-info-circle fa-lg"></i>&nbsp;BoxPlot</strong>
+                        		</div>
+                            	<div class="imgBoxplot card-body">
+
+                            	</div>
+                        	</div>
+                    	</div>
+
+
+            		</div><!-- .animated -->
+        		</div><!-- .content -->
+    		</div><!-- /#right-panel -->
+    	</div>
+
+		<script>
+        	var idxTumor = "";
+
+            var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
+            var file_selected = ''
+            var contrasts_selected = ''
+
+            var thym_file_rna = { option1:{value: 'THYM__gene_RNAseq__tissueTypeAll__20180421104414.txt', text: 'THYM__gene_RNAseq__tissueTypeAll'}, option2:{value: 'THYM__gene.normalized_RNAseq__tissueTypeAll__20180421104232.txt',text: 'THYM__gene.normalized_RNAseq__tissueTypeAll'} }
+            var thym_file_mirna = { option1:{value: 'THYM__mir_HiSeq.hg18__tissueTypeAll__20180427152414.txt', text: 'THYM__mir_HiSeq.hg18__tissueTypeAll'}, option2:{value: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll__20180427152542.txt', text: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll'} }
+            //var thym_contrasts = { option1:{value: 0, text: 'ALL (Default)'}, option2:{value: 1, text: 'S2a vs S1'}, option3:{value: 2, text: 'S2b vs S2a'}, option4:{value: 3, text: 'S3 vs S2b'}, option5:{value: 4, text: 'S4a vs S3'}, option6:{value: 5, text: 'S4b vs S4a'} }
+			var thym_contrasts = ['ALL (Default)', 'S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
+
+            var pvalue, foldchange
+
+            $(function() {
+                $('select[name=typeTumor]').on('change', function() {
+                    idxTumor = this.value;
+
+                    file_selected = ''
+                    $('input[type=radio][name=data_seq]').prop('checked', false)
+                    $('#idFileTumor').find('option').remove().end()
+                })
+
+
+                $('input[type=radio][name=data_seq]').change(function() {
+                    $('#idFileTumor').find('option').remove().end()
+
+					if (idxTumor == 0)
+						if(this.value == 'RNA')
+                            file_selected = thym_file_rna
+						else if(this.value == 'miRNA')
+                            file_selected = thym_file_mirna
+
+
+					$.each(file_selected, function (i, item) {
+                        $('#idFileTumor').append($('<option>', {
+                            value: item.value,
+                            text : item.text
+                        }));
+                    });
+				});
+			});
+
+			function analysis(idxAnalysis) {
+				var file_sel = $('select[name=fileTumor]').val();
+				var name_file_sel = file_sel.slice(0, -20);
+
+				var data_seq = $('input[type=radio][name=data_seq]:checked').val()
+
+				pvalue = $('input[type=text][name=pvalue]').val()
+				foldchange = $('input[type=text][name=foldchange]').val()
+                idxContrasts = $('select[name=typeContrasts]').val();
+
+                geneSelected = $('select[name=listGenes]').val();
+
+                console.log('geneSel', geneSelected)
+
+                if(idxTumor != "") {
+				    if(file_sel != "") {
+					    swal({
+                            title: '<i>Analisi</i> <u>avviata</u>',
+                            type: 'info',
+                            html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
+                            showCloseButton: false,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            onOpen: () => {
+								swal.showLoading()
+							}
+                        })
+
+                        $.post("/analysisBiomarkers", {tumor: arrTumor[idxTumor], idxAnalysis: idxAnalysis, data_seq: data_seq, path: file_sel, pvalue: pvalue, foldchange: foldchange, contrasts: idxContrasts, geneSelected: geneSelected}, function(data) {
+							if(idxAnalysis == 1 || idxAnalysis == 2) {
+                            	//disattivare il bottone avvia analisi
+								$('#play_analysis').prop("disabled", true);
+
+								//aggiungere le 5 scelte di stadio tumorale se è thym
+								addStageTumor(idxTumor)
+
+								//aggiungere tutti i geni nella lista
+								$('#idListGenes').html(data.listGene)
+
+								//abilitare opzioni e boxplot come div
+								$(".optionAnalysis").removeAttr("style")
+								$(".optionBoxplot").removeAttr("style")
+
+								//stampare la heatmap
+								$(".printHeatmap").removeAttr("style")
+								$('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+arrTumor[idxTumor]+'_'+data_seq+pvalue+foldchange+idxContrasts+'_heatmap.jpg?dummy='+jQuery.now()+'" />')
+
+								//stampare info dell'analisi + lista geni
+								$(".printListGenes").removeAttr("style")
+								$(".infoAnalysis").html('').prepend('<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>Dati:</b> '+data_seq+' Seq.</li><li><b>File:</b> '+name_file_sel+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li></ul><hr />'+data.AllListGene)
+
+							    //nascondo il div per il boxplot
+							    $('.printBoxplot').attr('style', 'visibility: hidden;');
+							} else {
+							    //stampare il boxplot
+								$(".printBoxplot").removeAttr("style")
+								console.log(jQuery.now())
+								$('.imgBoxplot').html('').prepend('<img src="../static/tempAnalysis/'+arrTumor[idxTumor]+'_'+geneSelected+'_boxplot.jpg?dummy='+jQuery.now()+'" />')
+							}
+
+                            $("html, body").removeClass("swal2-shown")
+                            $(".swal2-container").remove();
+                        }, "json");
+                    } else {
+                        swal({
+                            title: '<i>ERRORE</i>',
+                            type: 'error',
+                            html: 'Bisogna selezionare almeno un opzione!',
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        })
+                    }
+                } else {
+                    swal({
+                        title: '<i>ERRORE</i>',
+                        type: 'error',
+                        html: 'Bisogna selezionare almeno un tumore!',
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                }
+			}
+
+			function addStageTumor(idxTumor) {
+			    $('#idTypeContrasts').find('option').remove().end()
+
+			    if(idxTumor == 0)
+                    contrasts_selected = thym_contrasts
+
+
+                for (var i = 0; i < contrasts_selected.length; i++) {
+					$('#idTypeContrasts').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>')
+				}
+			}
+		</script>
+	</body>
+</html>
