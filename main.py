@@ -31,7 +31,8 @@ def index():
 # ***** BIOMARKERS *****
 @app.route('/biomarkers')
 def biomarkers():
-	return render_template('biomarkers.html')
+    emptyCache()
+    return render_template('biomarkers.html')
 
 
 

@@ -11,13 +11,28 @@ def analysisTHYM(idxAnalysis, data_seq, path, pvalue, foldchange, contrasts, gen
     name_file_rdata = "static/tempAnalysis" + os.sep + "THYM_workspace.RData"
     name_file_boxplot = "static/tempAnalysis" + os.sep + "THYM_" + geneSelected + "_boxplot.jpg"
 
+    name_file_mithril_1 = "static/tempAnalysis" + os.sep + "input_mithril_THYM_" + data_seq + "_" + contrasts
+    name_file_mithril_2 = "static/tempAnalysis" + os.sep + "input_mithril_THYM_" + data_seq + "_" + contrasts +".txt" #questo è per i contrasti che non sono ALL
+
     robjects.r('''
         library("limma")
         library("Biobase")
         library("gplots")
         library("jsonlite")
         
-        if({7} == 3) {{
+        if({7} == 4) {{
+            load(file="{6}") 
+            
+            if({5} == 0) {{
+                for (i in 1:5) {{
+                    name.file <- paste(paste("{10}", i, sep="_"), ".txt", sep="")
+                    write.table(results[i], name.file, sep="\t" ,row.names=TRUE, col.names = FALSE)
+                }} 
+            }}
+                
+            if({5} > 0) 
+                write.table(results[1], "{11}", sep="\t" ,row.names=TRUE, col.names = FALSE)                            
+        }} else if({7} == 3) {{
             load(file="{6}") 
             gene <- "{8}"
             exp.values <- as.vector(normalized.expressions$E[gene, rownames(df.patient.1)])
@@ -29,11 +44,11 @@ def analysisTHYM(idxAnalysis, data_seq, path, pvalue, foldchange, contrasts, gen
             if({7} == 1) {{
                 # =========== LOAD BIOSPECIMEN CLINICAL ===========
                 col.df.1 <- c("bcr_patient_uuid","bcr_patient_barcode","tumor_status","masaoka_stage","histologic_diagnosis","gender","vital_status")
-                df.biospecimen.1 <- read.table("datasetTCGA/THYM/BiospecimenClinical/nationwidechildrens.org_clinical_patient_thym.txt", header=T, sep="\t")[col.df.1]
+                df.biospecimen.1 <- read.table("datasetTCGA/THYM/BiospecimenClinicalData/nationwidechildrens.org_clinical_patient_thym.txt", header=T, sep="\t")[col.df.1]
                 df.biospecimen.1 <- df.biospecimen.1[-c(1,2),]
         
                 col.df.2 <- c("bcr_patient_uuid","bcr_sample_barcode","bcr_aliquot_barcode","bcr_aliquot_uuid","biospecimen_barcode_bottom")
-                df.biospecimen.2 <- read.table("datasetTCGA/THYM/BiospecimenClinical/nationwidechildrens.org_biospecimen_aliquot_thym.txt", header=T, sep="\t")[col.df.2]
+                df.biospecimen.2 <- read.table("datasetTCGA/THYM/BiospecimenClinicalData/nationwidechildrens.org_biospecimen_aliquot_thym.txt", header=T, sep="\t")[col.df.2]
                 df.biospecimen.2 <- df.biospecimen.2[-1,]
         
                 # =========== LOAD Seq ===========
@@ -76,7 +91,7 @@ def analysisTHYM(idxAnalysis, data_seq, path, pvalue, foldchange, contrasts, gen
             }} else if({7} == 2) {{
                 load(file="{6}") 
             }}
-                        
+            
             if({5} == 0)
                 results <- topTableF(contrasts.model, number=nrow(df.load), adjust.method="BH", p.value={1}, lfc={2})
             
@@ -96,7 +111,7 @@ def analysisTHYM(idxAnalysis, data_seq, path, pvalue, foldchange, contrasts, gen
             dev.off()
         }}
         
-        '''.format(path_with_file, float(pvalue), float(foldchange), name_file_json, name_file_heatmap, contrasts, name_file_rdata, idxAnalysis, geneSelected, name_file_boxplot))
+        '''.format(path_with_file, float(pvalue), float(foldchange), name_file_json, name_file_heatmap, contrasts, name_file_rdata, idxAnalysis, geneSelected, name_file_boxplot, name_file_mithril_1, name_file_mithril_2))
 
     if idxAnalysis == "1" or idxAnalysis == "2":
         #apro il json appena creato
