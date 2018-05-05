@@ -190,7 +190,7 @@ console.log(nameFile);
 console.log(outputPertubationsFile);
 console.log(outputFile);
 
-/*swal({
+swal({
     title: '<i>Analisi</i> <u>avviata</u>',
     type: 'info',
     html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
@@ -205,6 +205,9 @@ console.log(outputFile);
 })
 
 $.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
+    $("html, body").removeClass("swal2-shown")
+    $(".swal2-container").remove();
+
     swal({
         title: '<i>MITHrIL</i>',
         type: data.type,
@@ -215,7 +218,7 @@ $.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertu
         allowOutsideClick: false,
         allowEscapeKey: false
     })
-}, "json");*/
+}, "json");
 
 }
 

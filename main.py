@@ -81,26 +81,27 @@ def process2():
 # ***** ANALYSIS MITHRIL *****
 @app.route('/analysisMithril', methods=['POST'])
 def process3():
+    pathtempAnalysis = 'static/tempAnalysis/'
+
     inputFileName = request.form['fileName']
-    outPertubationsName = request.form['outPertubationsName']
-    outMainFile = request.form['outMainFile']
+    outPertubationsName = pathtempAnalysis + request.form['outPertubationsName']
+    outMainFile = pathtempAnalysis + request.form['outMainFile']
 
     rootDir = os.getcwd() + os.sep
 
-    # aggiungere controllo se il file cercato esiste nella dir tempAnalysis
     if inputFileName:
-        if os.path.exists(rootDir + 'static/tempAnalysis/'+inputFileName):
+        if os.path.exists(pathtempAnalysis + inputFileName):
             try:
                 sp.call(
-                    ['java', '-jar', rootDir + 'library/R/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', inputFileName, '-o', outMainFile, '-p',
-                     outPertubationsName], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
-                return jsonify({'status': 1, 'type': 'success', 'mess': 'Il file output di <b>MITHrIL</b>, sono stati con successo!'})
+                    ['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', pathtempAnalysis+inputFileName, '-o', outMainFile, '-p',
+                     outPertubationsName])#, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+                return jsonify({'status': 1, 'type': 'success', 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
             except:
-                return jsonify({'status': 0, 'type': 'error', 'mess': 'ERRORE JAVA!'})
+                return jsonify({'status': 0, 'type': 'error', 'mess': 'Si è verificato un problema durante l\'esecuzione del jar'})
         else:
-            return jsonify({'status': 0, 'type': 'error', 'mess': 'Il file di input non è stato generato'})
+            return jsonify({'status': 0, 'type': 'error', 'mess': 'Il file di input non è stato trovato, potrebbe non essere stato generato!'})
     else:
-        return jsonify({'status': 0, 'type': 'error', 'mess': 'ERRORE Nella chiamata POST'})
+        return jsonify({'status': 0, 'type': 'error', 'mess': 'Si è verificato un problema durante l\'esecuzione!'})
 
 
 
