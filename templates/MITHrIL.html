@@ -116,50 +116,42 @@
                                                 <label for="inline-checkbox3" class="form-check-label ">
                                                     <input id="inline-checkbox3" name="data_seq" value="miRNA" class="form-check-input" type="radio">miRNA Seq.
                                                 </label>
-                                                <label for="inline-checkbox4" id="idType" class="form-check-label ">
-                                                    <input id="inline-checkbox4" name="data_seq_contrast" value="ALL" class="form-check-input" type="checkbox">ALL
-                                                </label>&nbsp;&nbsp;
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <!--<div class="col-12 col-md-12">
-                                            <label class="form-control-label">Contrasti:</label>
-                                        </div>-->
+                                        <div class="col-12 col-md-12">
+                                            <label class="form-control-label">Contrasti</label></div>
+
                                         <div class="col-12 col-md-12">
                                             <div class="form-check-inline form-check">
-
+                                                <label for="inline-checkbox4" id="idType" class="form-check-label ">
+                                                    <input id="inline-checkbox4" name="data_seq_contrast" value="ALL" class="form-check-input" type="checkbox">ALL
+                                                </label>
                                             </div>
+                                            <select name="Contrast" id="idContrast" class="form-control" required></select>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row form-group">
-                                        <div class="col-12 col-md-12">
-                                            <label class="form-control-label">Contrasti</label>
-                                            <select name="Contrast" id="idContrast" class="form-control" required>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <button id="play_analysis" onclick="analysis()" class="btn btn-lg btn-danger btn-block">
-                                            <i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
-                                        </button>
-                                    </div>
+                                <div>
+                                    <button id="play_analysis" onclick="analysis()" class="btn btn-lg btn-danger btn-block">
+                                        <i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- .card -->
-                </div><!--/.col-->
+                    </div>
+                </div> <!-- .card -->
+            </div><!--/.col-->
 
-            </div><!-- .animated -->
-        </div><!-- .content -->
-    </div><!-- /#right-panel -->
+        </div><!-- .animated -->
+    </div><!-- .content -->
+</div><!-- /#right-panel -->
 </div>
 
 <script>
-    var idxTumor = "";
-var nameFile = "input_mithril_";
+var idxTumor = "";
 
 var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
 var contrasts_selected = ''
@@ -175,16 +167,30 @@ $(function() {
 });
 
 function analysis() {
+var nameFile = "input_mithril_";
+var outputPertubationsFile = "output_mithril_pertubations_";
+var outputFile =  "output_mithril_";
 
- nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input').val()+"_";
- if ($('#inline-checkbox4').is(":checked"))
-   nameFile += "0_"
+nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+outputPertubationsFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+outputFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+
+ if ($('#inline-checkbox4').is(":checked")){
+   nameFile += "0_";
+   outputPertubationsFile+= "0_";
+   outputFile+= "0_";
+ }
 
 
 nameFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
-console.log(nameFile);
+outputPertubationsFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+outputFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
 
-swal({
+console.log(nameFile);
+console.log(outputPertubationsFile);
+console.log(outputFile);
+
+/*swal({
     title: '<i>Analisi</i> <u>avviata</u>',
     type: 'info',
     html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
@@ -198,7 +204,7 @@ swal({
     }
 })
 
-$.post("/analysisMithril", {fileName: nameFile}, function(data) {
+$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
     swal({
         title: '<i>MITHrIL</i>',
         type: data.type,
@@ -209,7 +215,7 @@ $.post("/analysisMithril", {fileName: nameFile}, function(data) {
         allowOutsideClick: false,
         allowEscapeKey: false
     })
-}, "json");
+}, "json");*/
 
 }
 

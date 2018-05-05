@@ -81,22 +81,27 @@ def process2():
 # ***** ANALYSIS MITHRIL *****
 @app.route('/analysisMithril', methods=['POST'])
 def process3():
-    fileName = request.form['fileName']
+    inputFileName = request.form['fileName']
+    outPertubationsName = request.form['outPertubationsName']
+    outMainFile = request.form['outMainFile']
 
     rootDir = os.getcwd() + os.sep
 
-    print(fileName)
-
-    # nome del file errato, perchè non c'è la differenza fra mirna e rna
     # aggiungere controllo se il file cercato esiste nella dir tempAnalysis
-    if fileName:
-        try:
-            sp.call(
-                ['java', '-jar', rootDir + 'library/R/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', fileName, '-o', 'out.txt', '-p',
-                 'outPertubations.txt'], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
-            return jsonify({'status': 1, 'type': 'success', 'mess': 'Il file output di <b>MITHrIL</b>, sono stati con successo!'})
-        except:
-            return jsonify({'status': 0, 'type': 'error', 'mess': 'ERRORE JAVA!'})
+    if inputFileName:
+        if os.path.exists(rootDir + 'static/tempAnalysis/'+inputFileName):
+            try:
+                sp.call(
+                    ['java', '-jar', rootDir + 'library/R/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', inputFileName, '-o', outMainFile, '-p',
+                     outPertubationsName], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+                return jsonify({'status': 1, 'type': 'success', 'mess': 'Il file output di <b>MITHrIL</b>, sono stati con successo!'})
+            except:
+                return jsonify({'status': 0, 'type': 'error', 'mess': 'ERRORE JAVA!'})
+        else:
+            return jsonify({'status': 0, 'type': 'error', 'mess': 'Il file di input non è stato generato'})
+    else:
+        return jsonify({'status': 0, 'type': 'error', 'mess': 'ERRORE Nella chiamata POST'})
+
 
 
 if __name__ == '__main__':
