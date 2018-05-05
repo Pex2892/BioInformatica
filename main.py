@@ -32,14 +32,12 @@ def index():
 # ***** BIOMARKERS *****
 @app.route('/biomarkers')
 def biomarkers():
-    emptyCache()
     return render_template('biomarkers.html')
 
 
 # ***** MITHrIL *****
 @app.route('/MITHrIL')
 def mithril():
-    emptyCache()
     return render_template('MITHrIL.html')
 
 
@@ -84,10 +82,17 @@ def process2():
 @app.route('/analysisMithril', methods=['POST'])
 def process3():
     fileName = request.form['fileName']
+
+    rootDir = os.getcwd() + os.sep
+
+    print(fileName)
+
+    # nome del file errato, perchè non c'è la differenza fra mirna e rna
+    # aggiungere controllo se il file cercato esiste nella dir tempAnalysis
     if fileName:
         try:
             sp.call(
-                ['java', '-jar', 'MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', fileName, '-o', 'out.txt', '-p',
+                ['java', '-jar', rootDir + 'library/R/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i', fileName, '-o', 'out.txt', '-p',
                  'outPertubations.txt'], stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
             return jsonify({'status': 1, 'type': 'success', 'mess': 'Il file output di <b>MITHrIL</b>, sono stati con successo!'})
         except:

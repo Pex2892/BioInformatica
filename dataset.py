@@ -13,8 +13,8 @@ def downloadData(typeTumor, biocli, rnaseq, mirnaseq):
 
     os.chdir(typeTumor) # accedo alla directory appena creata
 
-    robjects.r.source(rootDir + "R_library/Module_A.R") #importo libreria
-    robjects.r.source(rootDir + "R_library/Module_B.R") #importo libreria
+    robjects.r.source(rootDir + "library/R/Module_A.R") #importo libreria
+    robjects.r.source(rootDir + "library/R/Module_B.R") #importo libreria
 
     #installare tutte le dipendenze richieste --> httr, rjson, RCurl, HGNChelper
 
