@@ -8,9 +8,10 @@
 
 
 
-    $('#bootstrap-data-table').DataTable({
+    var dataTable = $('#bootstrap-data-table').DataTable({
         lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
-        "searching": false
+        "searching": true,
+        "order": [[ 3, "desc" ]]
     });
 
 

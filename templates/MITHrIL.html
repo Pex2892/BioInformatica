@@ -4,265 +4,267 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang=""> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MITHrIL - BioCT</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>MITHrIL - BioCT</title>
+	    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="apple-icon.png">
-    <link rel="shortcut icon" href="../static/images/favicon.png">
+	    <link rel="apple-touch-icon" href="apple-icon.png">
+	    <link rel="shortcut icon" href="../static/images/favicon.png">
 
-    <link rel="stylesheet" href="../static/assets/css/normalize.css">
-    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="../static/assets/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../static/assets/css/cs-skin-elastic.css">
-    <!-- <link rel="stylesheet" href="../static/assets/css/bootstrap-select.less"> -->
-    <link rel="stylesheet" href="../static/assets/scss/style.css">
+	    <link rel="stylesheet" href="../static/assets/css/normalize.css">
+	    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="../static/assets/css/themify-icons.css">
+	    <link rel="stylesheet" href="../static/assets/css/flag-icon.min.css">
+	    <link rel="stylesheet" href="../static/assets/css/cs-skin-elastic.css">
+	    <!-- <link rel="stylesheet" href="../static/assets/css/bootstrap-select.less"> -->
+	    <link rel="stylesheet" href="../static/assets/scss/style.css">
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+	    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
-    <script src="{{ url_for('static', filename='assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
+	    <script src="{{ url_for('static', filename='assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
 
-    <script src="https://unpkg.com/sweetalert2@7.11.0/dist/sweetalert2.all.js"></script>
+	    <script src="https://unpkg.com/sweetalert2@7.11.0/dist/sweetalert2.all.js"></script>
 
-</head>
-<body>
-<!-- Left Panel -->
-<aside id="left-panel" class="left-panel">
-    <nav class="navbar navbar-expand-sm navbar-default">
-        <div class="navbar-header">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand" href="./"><img src="../static/images/logo.png" alt="Logo"></a>
-            <a class="navbar-brand hidden" href="./"><img src="../static/images/logo2.png" alt="Logo"></a>
-        </div>
-        <div id="main-menu" class="main-menu collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/"> <i class="menu-icon fa fa-home"></i>Dashboard</a>
-                </li>
-                <h3 class="menu-title">Analisi Dati</h3><!-- /.menu-title -->
-                <li>
-                    <a href="/biomarkers"> <i class="menu-icon fa fa-copyright"></i>Biomarcatori</a>
-                    <a href="/MITHrIL"> <i class="menu-icon fa fa-registered"></i>MITHrIL</a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</aside><!-- /#left-panel -->
+	</head>
+	<body>
+		<!-- Left Panel -->
+		<aside id="left-panel" class="left-panel">
+		    <nav class="navbar navbar-expand-sm navbar-default">
+		        <div class="navbar-header">
+		            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+		                <i class="fa fa-bars"></i>
+		            </button>
+		            <a class="navbar-brand" href="./"><img src="../static/images/logo.png" alt="Logo"></a>
+		            <a class="navbar-brand hidden" href="./"><img src="../static/images/logo2.png" alt="Logo"></a>
+		        </div>
+		        <div id="main-menu" class="main-menu collapse navbar-collapse">
+		            <ul class="nav navbar-nav">
+		                <li>
+		                    <a href="/"> <i class="menu-icon fa fa-home"></i>Dashboard</a>
+		                </li>
+		                <h3 class="menu-title">Analisi Dati</h3><!-- /.menu-title -->
+		                <li>
+		                    <a href="/biomarkers"> <i class="menu-icon fa fa-copyright"></i>Biomarcatori</a>
+		                    <a href="/MITHrIL"> <i class="menu-icon fa fa-registered"></i>MITHrIL</a>
+		                </li>
+		            </ul>
+		        </div><!-- /.navbar-collapse -->
+		    </nav>
+		</aside><!-- /#left-panel -->
 
-<!-- Right Panel -->
-<div id="right-panel" class="right-panel">
-    <div class="breadcrumbs">
-        <div class="col-sm-4">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>MITHrIL</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+		<!-- Right Panel -->
+		<div id="right-panel" class="right-panel">
+		    <div class="breadcrumbs">
+		        <div class="col-sm-4">
+		            <div class="page-header float-left">
+		                <div class="page-title">
+		                    <h1>MITHrIL</h1>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 
-    <div class="content mt-3">
-        <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="card">
-                        <div class="card-header bg-dark">
-                            <strong class="card-title text-light"><i class="fa fa-database fa-lg"></i>&nbsp;MITHrIL Analysis </strong>
-                        </div>
-                        <div class="card-body">
-                            <!-- Credit Card -->
-                            <div id="pay-invoice">
-                                <div class="card-body card-block">
-                                    <div class="card-title">
-                                        <h4 class="text-center">Seleziona una tipologia di tumore ed avvia la tua analisi!</h4>
-                                    </div>
-                                    <hr>
-                                    <!--<div class="form-group">
-                                        <label class=" form-control-label">URL del Video:</label>
-                                        <input type="text" name="url_video" id="url_video" class="form-control" required>
-                                    </div>-->
+		    <div class="content mt-3">
+		        <div class="animated fadeIn">
+		            <div class="row">
+		                <div class="col-lg-5">
+		                    <div class="card">
+		                        <div class="card-header bg-dark">
+		                            <strong class="card-title text-light"><i class="fa fa-database fa-lg"></i>&nbsp;MITHrIL Analysis </strong>
+		                        </div>
+		                        <div class="card-body">
+		                            <!-- Credit Card -->
+		                            <div id="pay-invoice">
+		                                <div class="card-body card-block">
+		                                    <div class="card-title">
+		                                        <h4 class="text-center">Seleziona una tipologia di tumore ed avvia la tua analisi!</h4>
+		                                    </div>
+		                                    <hr>
+		                                    <!--<div class="form-group">
+		                                        <label class=" form-control-label">URL del Video:</label>
+		                                        <input type="text" name="url_video" id="url_video" class="form-control" required>
+		                                    </div>-->
 
-                                    <div class="row form-group">
-                                        <div class="col-12 col-md-12">
-                                            <label class="form-control-label">Tipologia tumore:</label>
-                                            <select name="typeTumor" class="form-control" required>
-                                                <option value="">Seleziona...</option>
-                                                <option value="0">Thymoma (THYM)</option>
-                                                <option value="1">Thyroid Carcinoma (THCA)</option>
-                                                <option value="2">Sarcoma (SARC)</option>
-                                                <option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
-                                            </select>
-                                        </div>
-                                    </div>
+		                                    <div class="row form-group">
+		                                        <div class="col-12 col-md-12">
+		                                            <label class="form-control-label">Tipologia tumore:</label>
+		                                            <select name="typeTumor" class="form-control" required>
+		                                                <option value="">Seleziona...</option>
+		                                                <option value="0">Thymoma (THYM)</option>
+		                                                <option value="1">Thyroid Carcinoma (THCA)</option>
+		                                                <option value="2">Sarcoma (SARC)</option>
+		                                                <option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
+		                                            </select>
+		                                        </div>
+		                                    </div>
 
-                                    <div class="row form-group">
-                                        <div class="col-12 col-md-12">
-                                            <label class="form-control-label">Opzioni:</label>
-                                        </div>
-                                        <div class="col-12 col-md-12">
-                                            <div class="form-check-inline form-check">
-                                                <label for="inline-checkbox2" class="form-check-label ">
-                                                    <input id="inline-checkbox2" name="data_seq" value="RNA" class="form-check-input" type="radio">RNA Seq.
-                                                </label>&nbsp;&nbsp;
-                                                <label for="inline-checkbox3" class="form-check-label ">
-                                                    <input id="inline-checkbox3" name="data_seq" value="miRNA" class="form-check-input" type="radio">miRNA Seq.
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-12 col-md-12">
-                                            <label class="form-control-label">Contrasti</label></div>
+		                                    <div class="row form-group">
+		                                        <div class="col-12 col-md-12">
+		                                            <label class="form-control-label">Opzioni:</label>
+		                                        </div>
+		                                        <div class="col-12 col-md-12">
+		                                            <div class="form-check-inline form-check">
+		                                                <label for="inline-checkbox2" class="form-check-label ">
+		                                                    <input id="inline-checkbox2" name="data_seq" value="RNA" class="form-check-input" type="radio">RNA Seq.
+		                                                </label>&nbsp;&nbsp;
+		                                                <label for="inline-checkbox3" class="form-check-label ">
+		                                                    <input id="inline-checkbox3" name="data_seq" value="miRNA" class="form-check-input" type="radio">miRNA Seq.
+		                                                </label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="row form-group">
+		                                        <div class="col-12 col-md-12">
+		                                            <label class="form-control-label">Contrasti</label></div>
 
-                                        <div class="col-12 col-md-12">
-                                            <div class="form-check-inline form-check">
-                                                <label for="inline-checkbox4" id="idType" class="form-check-label ">
-                                                    <input id="inline-checkbox4" name="data_seq_contrast" value="ALL" class="form-check-input" type="checkbox">ALL
-                                                </label>
-                                            </div>
-                                            <select name="Contrast" id="idContrast" class="form-control" required></select>
-                                        </div>
-                                    </div>
-                                </div>
+		                                        <div class="col-12 col-md-12">
+		                                            <div class="form-check-inline form-check">
+		                                                <label for="inline-checkbox4" id="idType" class="form-check-label ">
+		                                                    <input id="inline-checkbox4" name="data_seq_contrast" value="ALL" class="form-check-input" type="checkbox">ALL
+		                                                </label>
+		                                            </div>
+		                                            <select name="Contrast" id="idContrast" class="form-control" required></select>
+		                                        </div>
+		                                    </div>
+		                                </div>
 
-                                <div>
-                                    <button id="play_analysis" onclick="analysis()" class="btn btn-lg btn-danger btn-block">
-                                        <i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- .card -->
-            </div><!--/.col-->
+		                                <div>
+		                                    <button id="play_analysis" onclick="analysis()" class="btn btn-lg btn-danger btn-block">
+		                                        <i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
+		                                    </button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div> <!-- .card -->
+		            </div><!--/.col-->
 
-        </div><!-- .animated -->
-    </div><!-- .content -->
-
-
-    <!-- Right Panel -->
-    <div id="right-panel1">
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
-                            </div>
-                            <div class="card-body">
-                                <table id="data-table" class="table table-striped table-bordered">
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-    </div><!-- /#right-panel -->
-</div>
-
-<script>
-var idxTumor = "";
-
-var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
-var contrasts_selected = ''
-
-var thym_contrasts = ['S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
-
-$(function() {
-    $('select[name=typeTumor]').on('change', function() {
-        idxTumor = this.value;
-        addStageTumor(idxTumor);
-
-    });
-});
-
-function analysis() {
-var nameFile = "input_mithril_";
-var outputPertubationsFile = "output_mithril_pertubations_";
-var outputFile =  "output_mithril_";
-
-nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
-outputPertubationsFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
-outputFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
-
- if ($('#inline-checkbox4').is(":checked")){
-   nameFile += "0_";
-   outputPertubationsFile+= "0_";
-   outputFile+= "0_";
- }
+		        </div><!-- .animated -->
+		    </div><!-- .content -->
 
 
-nameFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
-outputPertubationsFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
-outputFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+		    <!-- Right Panel -->
+		    <div id="right-panel1">
+		        <div class="content mt-3">
+		            <div class="animated fadeIn">
+		                <div class="row">
+		                    <div class="printOutputMithril col-md-12" style="visibility: hidden;">
+		                        <div class="card">
+		                            <div class="card-header">
+		                                <strong class="card-title">Output Mithril</strong>
+		                            </div>
+		                            <div class="card-body">
+		                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
 
-swal({
-    title: '<i>Analisi</i> <u>avviata</u>',
-    type: 'info',
-    html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
-    showCloseButton: false,
-    showCancelButton: false,
-    showConfirmButton: false,
-    allowOutsideClick: false,
-    allowEscapeKey: false,
-    onOpen: () => {
-        swal.showLoading()
-    }
-})
+		                                </table>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div><!-- .animated -->
+		        </div><!-- .content -->
+		    </div><!-- /#right-panel -->
+		</div>
 
-$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
-    $("html, body").removeClass("swal2-shown")
-    $(".swal2-container").remove();
+		<script>
+		var idxTumor = "";
 
-     $("#data-table").append(data.tableHtml);
-    swal({
-        title: '<i>MITHrIL</i>',
-        type: data.type,
-        html: data.mess,
-        showCloseButton: true,
-        showCancelButton: false,
-        showConfirmButton: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false
-    })
-}, "json");
+		var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
+		var contrasts_selected = ''
 
-}
+		var thym_contrasts = ['S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
 
-function addStageTumor(idxTumor) {
-    $('#idContrast').find('option').remove().end()
+		$(function() {
+		    $('select[name=typeTumor]').on('change', function() {
+		        idxTumor = this.value;
+		        addStageTumor(idxTumor);
 
-    if(idxTumor == 0)
-        contrasts_selected = thym_contrasts;
+		    });
+		});
 
-    for (var i = 0; i < contrasts_selected.length; i++) {
-        $('#idContrast').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>');
-    }
-}
-</script>
+		function analysis() {
+			var nameFile = "input_mithril_";
+			var outputPertubationsFile = "output_mithril_pertubations_";
+			var outputFile =  "output_mithril_";
 
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/datatables.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/jszip.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/pdfmake.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/vfs_fonts.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.print.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/lib/data-table/datatables-init.js') }}"></script>
-</body>
+			nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+			outputPertubationsFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+			outputFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+
+			if ($('#inline-checkbox4').is(":checked")) {
+				nameFile += "0_";
+				outputPertubationsFile+= "0_";
+				outputFile+= "0_";
+			}
+
+			nameFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+			outputPertubationsFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+			outputFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+
+			swal({
+			    title: '<i>Analisi</i> <u>avviata</u>',
+			    type: 'info',
+			    html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
+			    showCloseButton: false,
+			    showCancelButton: false,
+			    showConfirmButton: false,
+			    allowOutsideClick: false,
+			    allowEscapeKey: false,
+			    onOpen: () => {
+			        swal.showLoading()
+			    }
+			})
+
+			$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
+			    $("html, body").removeClass("swal2-shown")
+			    $(".swal2-container").remove();
+
+			    $('#bootstrap-data-table').append(data.tableHtml);
+
+			    $(".printOutputMithril").removeAttr("style")
+
+			    swal({
+			        title: '<i>MITHrIL</i>',
+			        type: data.type,
+			        html: data.mess,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        showConfirmButton: true,
+			        allowOutsideClick: false,
+			        allowEscapeKey: false
+			    })
+			}, "json");
+		}
+
+		function addStageTumor(idxTumor) {
+		    $('#idContrast').find('option').remove().end()
+
+		    if(idxTumor == 0)
+		        contrasts_selected = thym_contrasts;
+
+		    for (var i = 0; i < contrasts_selected.length; i++) {
+		        $('#idContrast').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>');
+		    }
+		}
+		</script>
+
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/datatables.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/jszip.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/pdfmake.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/vfs_fonts.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.print.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/lib/data-table/datatables-init.js') }}"></script>
+
+	</body>
 </html>
