@@ -91,62 +91,65 @@
                                   			<div class="card-title">
                                       			<h4 class="text-center">Seleziona una tipologia di tumore ed avvia la tua analisi!</h4>
                                   			</div>
-                                  			<hr>
-											<!--<div class="form-group">
-												<label class=" form-control-label">URL del Video:</label>
-												<input type="text" name="url_video" id="url_video" class="form-control" required>
-											</div>-->
 
-		                                    <div class="row form-group">
-		                            			<div class="col-12 col-md-12">
-		                            				<label class="form-control-label">Tipologia tumore:</label>
-		                              				<select name="typeTumor" class="form-control" required>
-		                                				<option value="">Seleziona...</option>
-						                                <option value="0">Thymoma (THYM)</option>
-						                                <option value="1">Thyroid Carcinoma (THCA)</option>
-						                                <option value="2">Sarcoma (SARC)</option>
-														<option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
-		                              				</select>
-		                            			</div>
-		                         			</div>
+                                            <hr>
 
-											<div class="row form-group">
-		                            			<div class="col-12 col-md-12">
-		                            				<label class="form-control-label">Opzioni:</label>
-                                                </div>
+                                            <div class="row form-group">
                                                 <div class="col-12 col-md-12">
-                                                    <div class="form-check-inline form-check">
-                                                        <label for="inline-checkbox2" class="form-check-label ">
-                                                            <input id="inline-checkbox2" name="data_seq" value="RNA" class="form-check-input" type="radio">RNA Seq.
-                                                        </label>&nbsp;&nbsp;
-                                                        <label for="inline-checkbox3" class="form-check-label ">
-                                                            <input id="inline-checkbox3" name="data_seq" value="miRNA" class="form-check-input" type="radio">miRNA Seq.
-                                                        </label>
+                                                    <label class="form-control-label">Tipologia tumore:</label>
+                                                    <select name="typeTumor" class="form-control" required>
+                                                        <option value="">Seleziona...</option>
+                                                        <option value="0">Thymoma (THYM)</option>
+                                                        <option value="1">Thyroid Carcinoma (THCA)</option>
+                                                        <option value="2">Liver Hepatocellular Carcinoma (LIHC)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-12 col-md-12">
+                                                    <label class="form-control-label">miRNA Seq:</label>
+                                                    <select name="file_miRNA_seq" class="form-control" required>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-12 col-md-12">
+                                                    <label class="form-control-label">RNA Seq:</label>
+                                                    <select name="file_RNA_seq" class="form-control" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-12">
+                                                            <label class="form-control-label">Tipologia Contrasti: <b>ALL</b></label>
+                                                        </div>
+                                                        <div class="col col-md-12">
+                                                            <label class="form-control-label">P.value massimo: <b>0.05</b></label>
+                                                        </div>
+                                                        <div class="col col-md-12">
+                                                            <label class="form-control-label">LogFoldChange minimo: <b>1.5</b></label>
+                                                        </div>
                                                     </div>
-		                            			</div>
-		                         			</div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="row form-group">
+                                                <div class="col-12 col-md-12">
+                                                    <label class="form-control-label">I dati sono salvati in:</label>
+                                                    <input type="text" id="disabled-input" name="disabled-input" placeholder="./path_progetto/static/tempAnalysis" disabled="" class="form-control">
 
-											<div class="row form-group">
-		                            			<div class="col-12 col-md-12">
-		                            				<label class="form-control-label">File da analizzare:</label>
-		                              				<select name="fileTumor" id="idFileTumor" class="form-control" required>
-		                              				</select>
-		                            			</div>
-		                         			</div>
-
-                          					<!--<div class="row form-group">
-                            					<div class="col col-md-2">
-                            						<label for="disabled-input" class="form-control-label">Salva come:</label>
-                            					</div>
-                            					<div class="col-12 col-md-10">
-                            						<input type="text" id="disabled-input" name="disabled-input" placeholder="./path_progetto/datasetTCGA/" disabled="" class="form-control">
-                            					</div>
-                          					</div>-->
-                                    		<div>
-                                      			<button id="play_analysis" onclick="analysis(1)" class="btn btn-lg btn-danger btn-block">
-                                          			<i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
-                                      			</button>
-                                    		</div>
+                                                </div>
+                                            </div>-->
+                                            <div>
+                                                <button onclick="analysis(1)" class="analysis_1 btn btn-lg btn-danger btn-block">
+                                                    <i class="fa fa-heartbeat fa-lg"></i>&nbsp;AVVIA ANALISI
+                                                </button>
+                                            </div>
                               			</div>
                           			</div>
                         		</div>
@@ -166,7 +169,7 @@
 													<label class="form-control-label">P.value massimo:</label>
 												</div>
 												<div class="col-md-6">
-													<input type="text" name="pvalue" class="form-control" value="0.5">
+													<input type="text" name="pvalue" class="form-control" value="0.05">
 												</div>
 											</div>
 
@@ -277,149 +280,166 @@
     	</div>
 
 		<script>
-        	var idxTumor = "";
-
-            var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
-            var file_selected = ''
+        	var idxTumor = '';
+        	var files_seq_tumor = [] //0 = miRNA, 1 = RNA
             var contrasts_selected = ''
+            var pvalue, foldchange
 
-            var thym_file_rna = { option1:{value: 'THYM__gene_RNAseq__tissueTypeAll__20180421104414.txt', text: 'THYM__gene_RNAseq__tissueTypeAll'}, option2:{value: 'THYM__gene.normalized_RNAseq__tissueTypeAll__20180421104232.txt',text: 'THYM__gene.normalized_RNAseq__tissueTypeAll'} }
-            var thym_file_mirna = { option1:{value: 'THYM__mir_HiSeq.hg18__tissueTypeAll__20180427152414.txt', text: 'THYM__mir_HiSeq.hg18__tissueTypeAll'}, option2:{value: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll__20180427152542.txt', text: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll'} }
-            //var thym_contrasts = { option1:{value: 0, text: 'ALL (Default)'}, option2:{value: 1, text: 'S2a vs S1'}, option3:{value: 2, text: 'S2b vs S2a'}, option4:{value: 3, text: 'S3 vs S2b'}, option5:{value: 4, text: 'S4a vs S3'}, option6:{value: 5, text: 'S4b vs S4a'} }
+            var arrTumor = ['THYM', 'THCA', 'LIHC']
+
+            var thym_file_mirna = {
+                option1:{value: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll__20180427152542.txt', text: 'THYM__mir_HiSeq.hg19.mirbase20__tissueTypeAll'},
+                option2:{value: 'THYM__mir_HiSeq.hg18__tissueTypeAll__20180427152414.txt', text: 'THYM__mir_HiSeq.hg18__tissueTypeAll'}
+            }
+
+            var thym_file_rna = {
+                option1:{value: 'THYM__gene.normalized_RNAseq__tissueTypeAll__20180421104232.txt',text: 'THYM__gene.normalized_RNAseq__tissueTypeAll'},
+                option2:{value: 'THYM__gene_RNAseq__tissueTypeAll__20180421104414.txt', text: 'THYM__gene_RNAseq__tissueTypeAll'}
+            }
+
 			var thym_contrasts = ['ALL (Default)', 'S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
 
-            var pvalue, foldchange
 
             $(function() {
                 $('select[name=typeTumor]').on('change', function() {
                     idxTumor = this.value;
 
-                    file_selected = ''
-                    $('input[type=radio][name=data_seq]').prop('checked', false)
-                    $('#idFileTumor').find('option').remove().end()
-                })
+                    //resetto array files
+                    files_seq_tumor = []
 
+                    //ripulisco le select miRNA e RNA
+                    $('select[name=file_miRNA_seq], select[name=file_RNA_seq]').find('option').remove().end()
 
-                $('input[type=radio][name=data_seq]').change(function() {
-                    $('#idFileTumor').find('option').remove().end()
+                    //in base al tumore riempio le select di miRNA e RNA
+                    switch (idxTumor) {
+                        case "0":
+                            files_seq_tumor[0] = thym_file_mirna
+                            files_seq_tumor[1] = thym_file_rna
+                            break;
+                        case "1": //da cambiare
+                            files_seq_tumor[0] = thym_file_mirna
+                            files_seq_tumor[1] = thym_file_rna
+                            break;
+                        case "2": //da cambiare
+                            files_seq_tumor[0] = thym_file_mirna
+                            files_seq_tumor[1] = thym_file_rna
+                            break;
+                    }
 
-					if (idxTumor == 0)
-						if(this.value == 'RNA')
-                            file_selected = thym_file_rna
-						else if(this.value == 'miRNA')
-                            file_selected = thym_file_mirna
+                    console.log('array files selezionati', files_seq_tumor)
 
-
-					$.each(file_selected, function (i, item) {
-                        $('#idFileTumor').append($('<option>', {
+                    $.each(files_seq_tumor[0], function (i, item) {
+                        $('select[name=file_miRNA_seq]').append($('<option>', {
                             value: item.value,
                             text : item.text
                         }));
                     });
-				});
+
+                    $.each(files_seq_tumor[1], function (i, item) {
+                        $('select[name=file_RNA_seq]').append($('<option>', {
+                            value: item.value,
+                            text : item.text
+                        }));
+                    });
+                });
 			});
 
+            /* ======================================================================================== */
+
 			function analysis(idxAnalysis) {
-				var file_sel = $('select[name=fileTumor]').val();
-				var name_file_sel = file_sel.slice(0, -20);
+			    if(idxTumor != "") {
+                    var file_tumor_selected_miRNA = $('select[name=file_miRNA_seq]').val()
+                    var file_tumor_selected_RNA = $('select[name=file_RNA_seq]').val()
 
-				var data_seq = $('input[type=radio][name=data_seq]:checked').val()
+                    console.log('files_tumor_selected', file_tumor_selected_miRNA + ' // '+file_tumor_selected_RNA)
 
-				pvalue = $('input[type=text][name=pvalue]').val()
-				foldchange = $('input[type=text][name=foldchange]').val()
-                idxContrasts = $('select[name=typeContrasts]').val();
+                    pvalue = $('input[type=text][name=pvalue]').val()
+                    console.log('pvalue', pvalue)
 
-                geneSelected = $('select[name=listGenes]').val();
+                    foldchange = $('input[type=text][name=foldchange]').val()
+                    console.log('foldchange', foldchange)
 
-                if(idxTumor != "") {
-				    if(file_sel != "") {
-					    swal({
-                            title: '<i>Analisi</i> <u>avviata</u>',
-                            type: 'info',
-                            html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
-                            showCloseButton: false,
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            onOpen: () => {
-								swal.showLoading()
-							}
-                        })
+                    idxContrasts = $('select[name=typeContrasts]').val();
+                    console.log('idxContrasts', idxContrasts)
 
-                        console.log('id contrasto', idxContrasts)
+                    geneSelected = $('select[name=listGenes]').val();
+                    console.log('geneSelected', geneSelected)
 
-                        $.post("/analysisBiomarkers", {tumor: arrTumor[idxTumor], idxAnalysis: idxAnalysis, data_seq: data_seq, path: file_sel, pvalue: pvalue, foldchange: foldchange, contrasts: idxContrasts, geneSelected: geneSelected}, function(data) {
-							if(idxAnalysis == 4) {
-							    swal({
-                                    title: '<i>MITHrIL</i>',
-                                    type: 'success',
-                                    html: 'Il file di input per <b>MITHrIL</b>, è stato generato con successo!',
-                                    showCloseButton: true,
-                                    showCancelButton: false,
-                                    showConfirmButton: true,
-                                    allowOutsideClick: false,
-                                    allowEscapeKey: false
-                                })
-							} else {
-                                if(idxAnalysis == 1 || idxAnalysis == 2) {
-                                    //disattivare il bottone avvia analisi
-                                    $('#play_analysis').prop("disabled", true);
-                                    $('select[name=typeTumor]').prop('disabled', 'disabled');
-                                    $('input[type=radio][name=data_seq]').attr('disabled',true);
-                                    $('select[name=fileTumor]').prop('disabled', 'disabled');
+                    swal({
+                        title: '<i>Analisi</i> <u>avviata</u>',
+                        type: 'info',
+                        html: 'Il <b>Popup</b>, si chiuder&agrave; automaticamente al completamento dell\'analisi.',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        onOpen: () => {
+                            swal.showLoading()
+                        }
+                    })
 
+                    $.post("/analysisBiomarkers", {tumor: arrTumor[idxTumor], idxAnalysis: idxAnalysis, file_miRNA: file_tumor_selected_miRNA,
+                        file_RNA: file_tumor_selected_RNA, pvalue: pvalue, foldchange: foldchange,
+                        contrasts: idxContrasts, geneSelected: geneSelected}, function(data) {
 
-                                    //aggiungere le 5 scelte di stadio tumorale se è thym
-                                    addStageTumor(idxTumor)
+                        if(idxAnalysis == 4) {
+                            swal({
+                                title: '<i>MITHrIL</i>',
+                                type: 'success',
+                                html: 'Il file di input per <b>MITHrIL</b>, è stato generato con successo!',
+                                showCloseButton: true,
+                                showCancelButton: false,
+                                showConfirmButton: true,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            })
+                        } else {
+                            if(idxAnalysis == 1 || idxAnalysis == 2) {
+                                //disattivare il bottone avvia analisi
+                                $('.analysis_1').prop("disabled", true);
+                                $('select[name=typeTumor]').prop('disabled', 'disabled');
+                                $('select[name=file_miRNA_seq], select[name=file_RNA_seq]').prop('disabled', 'disabled');
 
-                                    //aggiungere tutti i geni nella lista
-                                    $('#idListGenes').html(data.listGene)
+                                //aggiungere le 5 scelte di stadio tumorale se è thym
+                                addStageTumor(idxTumor)
 
-                                    //abilitare opzioni e boxplot come div
-                                    $(".optionAnalysis").removeAttr("style")
-                                    $(".optionBoxplot").removeAttr("style")
+                                //aggiungere tutti i geni nella lista
+                                $('#idListGenes').html(data.listGene)
 
-                                    //stampare la heatmap
-                                    $(".printHeatmap").removeAttr("style")
-                                    $('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+arrTumor[idxTumor]+'_'+data_seq+pvalue+foldchange+idxContrasts+'_heatmap.jpg?dummy='+jQuery.now()+'" />')
+                                //abilitare opzioni e boxplot come div
+                                $(".optionAnalysis").removeAttr("style")
+                                $(".optionBoxplot").removeAttr("style")
 
-                                    //stampare info dell'analisi + lista geni
-                                    $(".printListGenes").removeAttr("style")
-                                    $(".infoAnalysis").html('').prepend('<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>Dati:</b> '+data_seq+' Seq.</li><li><b>File:</b> '+name_file_sel+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li></ul><hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr />'+data.AllListGene)
+                                //stampare la heatmap
+                                $(".printHeatmap").removeAttr("style")
+                                $('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+ arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_heatmap.jpg?dummy='+jQuery.now()+'" />')
 
-                                    //nascondo il div per il boxplot
-                                    $('.printBoxplot').attr('style', 'visibility: hidden;');
-                                } else if(idxAnalysis == 3){
-                                    //stampare il boxplot
-                                    $(".printBoxplot").removeAttr("style")
-                                    console.log(jQuery.now())
-                                    $('.imgBoxplot').html('').prepend('<img src="../static/tempAnalysis/'+arrTumor[idxTumor]+'_'+geneSelected+'_boxplot.jpg?dummy='+jQuery.now()+'" />')
-                                }
+                                //stampare info dell'analisi + lista geni
+                                $(".printListGenes").removeAttr("style")
+                                $(".infoAnalysis").html('').prepend('<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>miRNA Seq:</b> '+file_tumor_selected_miRNA.slice(0, -20)+'</li><li><b>RNA Seq:</b> '+file_tumor_selected_RNA.slice(0, -20)+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul><hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr />'+data.AllListGene)
 
-                                $("html, body").removeClass("swal2-shown")
-                                $(".swal2-container").remove();
+                                //nascondo il div per il boxplot
+                                $('.printBoxplot').attr('style', 'visibility: hidden;');
+                            } else if(idxAnalysis == 3){
+                                //stampare il boxplot
+                                $(".printBoxplot").removeAttr("style")
+                                console.log(jQuery.now())
+                                $('.imgBoxplot').html('').prepend('<img src="../static/tempAnalysis/' + arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_' + geneSelected + '_boxplot.jpg?dummy='+jQuery.now()+'" />')
                             }
-                        }, "json");
-                    } else {
-                        swal({
-                            title: '<i>ERRORE</i>',
-                            type: 'error',
-                            html: 'Bisogna selezionare almeno un opzione!',
-                            showCloseButton: true,
-                            showCancelButton: true,
-                            showConfirmButton: false,
-                            allowOutsideClick: false
-                        })
-                    }
+
+                            $("html, body").removeClass("swal2-shown")
+                            $(".swal2-container").remove();
+                        }
+                    }, "json");
                 } else {
                     swal({
                         title: '<i>ERRORE</i>',
                         type: 'error',
                         html: 'Bisogna selezionare almeno un tumore!',
                         showCloseButton: true,
-                        showCancelButton: true,
-                        showConfirmButton: false,
+                        showCancelButton: false,
+                        showConfirmButton: true,
                         allowOutsideClick: false
                     })
                 }

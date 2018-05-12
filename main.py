@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from dataset import *
 from thym import *
+from thca import *
+from lihc import *
 import subprocess as sp
 
 # ***** SETTINGS *****
@@ -60,19 +62,23 @@ def process():
 @app.route('/analysisBiomarkers', methods=['POST'])
 def process2():
     nameTumor = request.form['tumor']
-    data_seq = request.form['data_seq']
-    path = request.form['path']
+    idxAnalysis = request.form['idxAnalysis']
+    file_miRNA = request.form['file_miRNA']
+    file_RNA = request.form['file_RNA']
     pvalue = request.form['pvalue']
     foldchange = request.form['foldchange']
     contrasts = request.form['contrasts']
-    idxAnalysis = request.form['idxAnalysis']
     geneSelected = request.form['geneSelected']
 
-    if nameTumor and data_seq and path and pvalue and foldchange and contrasts and idxAnalysis:
+    if nameTumor and idxAnalysis and file_miRNA and file_RNA and pvalue and foldchange and contrasts:
         if nameTumor == 'THYM':
-            htmlListGenes, htmlAllGenes = analysisTHYM(idxAnalysis, data_seq, path, pvalue, foldchange, contrasts, geneSelected)
+            htmlListGenes, htmlAllGenes, nGenes = analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
+        elif nameTumor == 'THCA':
+            htmlListGenes, htmlAllGenes, nGenes = analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
+        elif nameTumor == 'LIHC':
+            htmlListGenes, htmlAllGenes, nGenes = analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
 
-        return jsonify({'status': 1, 'type': 'success', 'listGene': htmlListGenes, 'AllListGene': htmlAllGenes})
+        return jsonify({'status': 1, 'type': 'success', 'listGene': htmlListGenes, 'AllListGene': htmlAllGenes, 'nGenes': nGenes})
 
     return jsonify({'status': 0, 'type': 'error', 'mess': 'Missing data!'})
 
