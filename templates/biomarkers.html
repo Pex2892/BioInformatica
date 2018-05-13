@@ -299,6 +299,31 @@
 
 			var thym_contrasts = ['ALL (Default)', 'S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
 
+			var thca_file_mirna = {
+                option1:{value: 'THCA__mir_HiSeq.hg19.mirbase20__tissueTypeAll__20180430100324.txt', text: 'THCA__mir_HiSeq.hg19.mirbase20__tissueTypeAll'},
+                option2:{value: 'THCA__mir_HiSeq.hg18__tissueTypeAll__20180430100150.txt', text: 'THCA__mir_HiSeq.hg18__tissueTypeAll'}
+            }
+
+            var thca_file_rna = {
+                option1:{value: 'THCA__gene.normalized_RNAseq__tissueTypeAll__20180430141622.txt',text: 'THCA__gene.normalized_RNAseq__tissueTypeAll'},
+                option2:{value: 'THCA__gene_RNAseq__tissueTypeAll__20180430153443.txt', text: 'THCA__gene_RNAseq__tissueTypeAll'}
+            }
+
+			var thca_contrasts = ['ALL (Default)', 'S2 vs S1', 'S3 vs S2', 'S4 vs S3', 'S4a vs S4', 'S4c vs S4a']
+
+			var lihc_file_mirna = {
+                option1:{value: 'LIHC__mir_HiSeq.hg19.mirbase20__tissueTypeAll__20180430150613.txt', text: 'LIHC__mir_HiSeq.hg19.mirbase20__tissueTypeAll'},
+                option2:{value: 'LIHC__mir_HiSeq.hg18__tissueTypeAll__20180430150456.txt', text: 'LIHC__mir_HiSeq.hg18__tissueTypeAll'}
+            }
+
+            var lihc_file_rna = {
+                option1:{value: 'LIHC__gene.normalized_RNAseq__tissueTypeAll__20180430151612.txt',text: 'LIHC__gene.normalized_RNAseq__tissueTypeAll'},
+                option2:{value: 'LIHC__gene_RNAseq__tissueTypeAll__20180430151346.txt', text: 'LIHC__gene_RNAseq__tissueTypeAll'}
+            }
+
+			var lihc_contrasts = ['ALL (Default)', 'S2 vs S1', 'S3a vs S3', 'S3b vs S3a', 'S3c vs S3b','S4 vs S3c','S4a vs S4', 'S4b vs S4a']
+
+
 
             $(function() {
                 $('select[name=typeTumor]').on('change', function() {
@@ -317,12 +342,12 @@
                             files_seq_tumor[1] = thym_file_rna
                             break;
                         case "1": //da cambiare
-                            files_seq_tumor[0] = thym_file_mirna
-                            files_seq_tumor[1] = thym_file_rna
+                            files_seq_tumor[0] = thca_file_mirna
+                            files_seq_tumor[1] = thca_file_rna
                             break;
                         case "2": //da cambiare
-                            files_seq_tumor[0] = thym_file_mirna
-                            files_seq_tumor[1] = thym_file_rna
+                            files_seq_tumor[0] = lihc_file_mirna
+                            files_seq_tumor[1] = lihc_file_rna
                             break;
                     }
 
@@ -448,9 +473,17 @@
 			function addStageTumor(idxTumor) {
 			    $('#idTypeContrasts').find('option').remove().end()
 
-			    if(idxTumor == 0)
-                    contrasts_selected = thym_contrasts
-
+			    switch (idxTumor) {
+                        case "0":
+                            contrasts_selected = thym_contrasts
+                            break;
+                        case "1":
+                            contrasts_selected = thca_contrasts
+                            break;
+                        case "2":
+                            contrasts_selected = lihc_contrasts
+                            break;
+                    }
 
                 for (var i = 0; i < contrasts_selected.length; i++) {
 					$('#idTypeContrasts').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>')
