@@ -31,21 +31,22 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                     write.table(results[i], name.file, sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)
                 }} 
             }} else {{
-                    write.table(results[1], "{12}", sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)                            
-                }}
+                write.table(results[1], "{12}", sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)                            
+            }}
 
         }} else if({0} == 3) {{ #Creazione boxplot per singolo gene
-                    load(file="{3}")
-                    gene <- "{9}"
-                    exp.values <- as.vector(normalized.expressions$E[gene, rownames(df.patient)])
-                    boxplot.data <- data.frame(Sample.Category=df.patient$masaoka_stage, Sample.Value=exp.values, row.names=rownames(df.patient))
-                    jpeg(file="{10}")
-                    boxplot(Sample.Value~Sample.Category, data=boxplot.data, main=paste0("Evaluation of ", gene), xlab="Sample Category", ylab="Expression Value")
-                    dev.off()
-        }} else {{
-        
-            if({0} == 1) {{ #Analisi per l'estrazione dei biomarcatori
+            load(file="{3}")
             
+            gene <- "{9}"
+            exp.values <- as.vector(normalized.expressions$E[gene, rownames(df.patient)])
+            boxplot.data <- data.frame(Sample.Category=df.patient$ajcc_pathologic_tumor_stage, Sample.Value=exp.values, row.names=rownames(df.patient))
+            
+            jpeg(file="{10}")
+            boxplot(Sample.Value~Sample.Category, data=boxplot.data, main=paste0("Evaluation of ", gene), xlab="Sample Category", ylab="Expression Value")
+            dev.off()
+        
+        }} else {{
+            if({0} == 1) {{ #Analisi per l'estrazione dei biomarcatori
                 # =========== LOAD BIOSPECIMEN CLINICAL ===========
                 col.df.1 <- c("bcr_patient_uuid", "bcr_patient_barcode", "tumor_status", "ajcc_pathologic_tumor_stage", "histologic_diagnosis", "gender", "vital_status")
                 df.patient <- read.table("datasetTCGA/THCA/BiospecimenClinicalData/nationwidechildrens.org_clinical_patient_thca.txt", header = T, sep = "\t", quote = "" )[col.df.1]
@@ -64,29 +65,27 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
             
                 df.patient <- df.patient[-which(df.patient$ajcc_pathologic_tumor_stage == "[Not Available]" | df.patient$ajcc_pathologic_tumor_stage == "" ), ] #Rimuovo tutti i levels '[Not Available]'
             
-                df.patient$ajcc_pathologic_tumor_stage <-
-                  droplevels(df.patient)$ajcc_pathologic_tumor_stage #rimuovo i livelli non utilizzati
+                df.patient$ajcc_pathologic_tumor_stage <- droplevels(df.patient)$ajcc_pathologic_tumor_stage #rimuovo i livelli non utilizzati
             
-                  col.patient.barcode <-
-                  as.vector(unique(df.patient$bcr_patient_barcode))
+                col.patient.barcode <- as.vector(unique(df.patient$bcr_patient_barcode))
             
-                  idx.col.miRNA <- array(unlist(lapply(col.patient.barcode, function(x) which(colnames(df.miRNA) %like% as.character(x)))))
+                idx.col.miRNA <- array(unlist(lapply(col.patient.barcode, function(x) which(colnames(df.miRNA) %like% as.character(x)))))
             
-                  idx.col.RNA <- array(unlist(lapply(col.patient.barcode, function(x) which(colnames(df.RNA) %like% as.character(x)))))
+                idx.col.RNA <- array(unlist(lapply(col.patient.barcode, function(x) which(colnames(df.RNA) %like% as.character(x)))))
             
-                  df.miRNA <- as.data.frame(df.miRNA[, idx.col.miRNA]) 
-                  names(df.miRNA) <- substr(names(df.miRNA),-1, 12)
+                df.miRNA <- as.data.frame(df.miRNA[, idx.col.miRNA]) 
+                names(df.miRNA) <- substr(names(df.miRNA),-1, 12)
             
-                  df.RNA <- as.data.frame(df.RNA[, idx.col.RNA]) 
-                  names(df.RNA) <- substr(names(df.RNA),-1, 12)
+                df.RNA <- as.data.frame(df.RNA[, idx.col.RNA]) 
+                names(df.RNA) <- substr(names(df.RNA),-1, 12)
             
-                  col.union <- intersect(colnames(df.RNA), colnames(df.miRNA))
-                  df.union <- data.matrix(rbind(df.miRNA[, col.union], df.RNA[, col.union]))
+                col.union <- intersect(colnames(df.RNA), colnames(df.miRNA))
+                df.union <- data.matrix(rbind(df.miRNA[, col.union], df.RNA[, col.union]))
             
-                  df.patient <- df.patient[match(colnames(df.union), df.patient$bcr_patient_barcode),]
+                df.patient <- df.patient[match(colnames(df.union), df.patient$bcr_patient_barcode),]
             
-                  design.original <- model.matrix( ~ 0 + ajcc_pathologic_tumor_stage, data = df.patient)
-                  colnames(design.original) <- c("S1", "S2", "S3", "S4", "S4a", "S4c")
+                design.original <- model.matrix( ~ 0 + ajcc_pathologic_tumor_stage, data = df.patient)
+                colnames(design.original) <- c("S1", "S2", "S3", "S4", "S4a", "S4c")
 
                 # =========== ANALYSIS ===========
                 normalized.expressions <- voom(df.union, design.original)
@@ -94,14 +93,13 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 limma.model <- eBayes(initial.model)
             
                 #ogni volta usate lo stadio precedente come controllo per vedere quali geni differiscono
-                
                 contrasts <- makeContrasts(S2 - S1, S3 - S2, S4 - S3, S4a - S4, S4c - S4a, levels = design.original)
                 contrasts.model <- eBayes(contrasts.fit(limma.model, contrasts))
                 save.image(file="{3}")
                 
             }} else if({0} == 2) {{ #Analisi per l'estrazione dei biomarcatori (Custom)
-                    load(file="{3}") 
-                }}
+                load(file="{3}") 
+            }}
 
             if({4} == 0) {{
                 results <- topTableF(contrasts.model, number=nrow(df.union), adjust.method="BH", p.value={5}, lfc={6})
@@ -109,17 +107,17 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 results <- topTable(contrasts.model, coef={4}, number=nrow(df.union), adjust.method="BH", p.value={5}, lfc={6})
             }}
 
-                #print(nrow(results))
+            #print(nrow(results))
 
-                json <- toJSON(results, pretty = T)
-                #cat(x) #serve a stamparlo
-                write(json, "{7}")
+            json <- toJSON(results, pretty = T)
+            #cat(x) #serve a stamparlo
+            write(json, "{7}")
 
-                de.genes <- rownames(results)
-                de.expressions <- normalized.expressions$E[de.genes,]
-                jpeg(file="{8}")
-                heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
-                dev.off()
+            de.genes <- rownames(results)
+            de.expressions <- normalized.expressions$E[de.genes,]
+            jpeg(file="{8}")
+            heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
+            dev.off()
         }}
         '''.format(idxAnalysis, path_file_miRNA, path_file_RNA, name_file_rdata, contrasts, pvalue,
                        foldchange, name_file_json, name_file_heatmap, geneSelected, name_file_boxplot,

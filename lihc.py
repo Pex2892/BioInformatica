@@ -39,7 +39,7 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
 
             gene <- "{9}"
             exp.values <- as.vector(normalized.expressions$E[gene, rownames(df.patient)])
-            boxplot.data <- data.frame(Sample.Category=df.patient$masaoka_stage, Sample.Value=exp.values, row.names=rownames(df.patient))
+            boxplot.data <- data.frame(Sample.Category=df.patient$ajcc_pathologic_tumor_stage, Sample.Value=exp.values, row.names=rownames(df.patient))
 
             jpeg(file="{10}")
             boxplot(Sample.Value~Sample.Category, data=boxplot.data, main=paste0("Evaluation of ", gene), xlab="Sample Category", ylab="Expression Value")
@@ -64,9 +64,9 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 rownames(df.patient) <- as.vector(df.patient$bcr_patient_barcode)
             
                 df.patient <- df.patient[-which(
-                  df.patient$ajcc_pathologic_tumor_stage == "[Not Available]" |
-                  df.patient$ajcc_pathologic_tumor_stage == "[Discrepancy]" |
-                  df.patient$ajcc_pathologic_tumor_stage == ""
+                    df.patient$ajcc_pathologic_tumor_stage == "[Not Available]" |
+                    df.patient$ajcc_pathologic_tumor_stage == "[Discrepancy]" |
+                    df.patient$ajcc_pathologic_tumor_stage == ""
                 ),] #Rimuovo tutti i levels '[Not Available], [Discrepancy], vuoti'
             
                 df.patient$ajcc_pathologic_tumor_stage <- droplevels(df.patient)$ajcc_pathologic_tumor_stage #rimuovo i livelli non utilizzati
