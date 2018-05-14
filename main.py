@@ -34,6 +34,7 @@ def index():
 # ***** BIOMARKERS *****
 @app.route('/biomarkers')
 def biomarkers():
+    #emptyCache()
     return render_template('biomarkers.html')
 
 
@@ -72,13 +73,13 @@ def process2():
 
     if nameTumor and idxAnalysis and file_miRNA and file_RNA and pvalue and foldchange and contrasts:
         if nameTumor == 'THYM':
-            htmlListGenes, htmlAllGenes, nGenes = analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
+            htmlListGenes, htmlAllGenes, nGenes, emptyDF = analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
         elif nameTumor == 'THCA':
-            htmlListGenes, htmlAllGenes, nGenes = analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
+            htmlListGenes, htmlAllGenes, nGenes, emptyDF = analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
         elif nameTumor == 'LIHC':
-            htmlListGenes, htmlAllGenes, nGenes = analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
+            htmlListGenes, htmlAllGenes, nGenes, emptyDF = analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrasts, geneSelected)
 
-        return jsonify({'status': 1, 'type': 'success', 'listGene': htmlListGenes, 'AllListGene': htmlAllGenes, 'nGenes': nGenes})
+        return jsonify({'status': 1, 'type': 'success', 'listGene': htmlListGenes, 'AllListGene': htmlAllGenes, 'nGenes': nGenes, 'emptyDF': emptyDF})
 
     return jsonify({'status': 0, 'type': 'error', 'mess': 'Missing data!'})
 

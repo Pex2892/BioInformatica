@@ -107,34 +107,40 @@ def analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
             }}
              
             #print(nrow(results))
-    
-            json <- toJSON(results, pretty = T)
-            #cat(x) #serve a stamparlo
-            write(json, "{7}")
             
-            de.genes <- rownames(results)
-            de.expressions <- normalized.expressions$E[de.genes,]
-            jpeg(file="{8}")
-            heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
-            dev.off()
+            if(is.data.frame(results) && nrow(results)!=0) {{   
+                json <- toJSON(results, pretty = T)
+                #cat(x) #serve a stamparlo
+                write(json, "{7}")
+                
+                de.genes <- rownames(results)
+                de.expressions <- normalized.expressions$E[de.genes,]
+                jpeg(file="{8}")
+                heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
+                dev.off()
+            }}
         }}
         '''.format(idxAnalysis, path_file_miRNA, path_file_RNA, name_file_rdata, contrasts, pvalue,
                    foldchange, name_file_json, name_file_heatmap, geneSelected, name_file_boxplot, name_file_mithril_1, name_file_mithril_2))
 
-    if idxAnalysis == "1" or idxAnalysis == "2":
+    nGenes = 0
+    if os.path.isfile(name_file_json) and (idxAnalysis == "1" or idxAnalysis == "2"):
+
         #apro il json appena creato
         with open(name_file_json, 'r') as f:
             datastore = json.load(f)
 
         htmlGenes = '<option value="">Seleziona...</option>'
         htmlAllGenes = ''
-        nGenes = 0
+
         for idx,value in enumerate(datastore):
             htmlGenes += '<option value="'+value['_row']+'">'+value['_row']+'</option>'
             htmlAllGenes += value['_row']+"<br />"
             nGenes += 1
         # questo html, mi serve per inserirlo nella lista dei geni
 
-        return htmlGenes, htmlAllGenes, nGenes
+        return htmlGenes, htmlAllGenes, nGenes, 0
+    elif idxAnalysis == "3" or idxAnalysis == "4": #è importante questa condizione, perchè allora causerà un errore sulla creazione del boxplot o nell'estrazione dei file di input
+        return '', '', nGenes, 0
 
-    return '', '', ''
+    return '', '', nGenes, 1

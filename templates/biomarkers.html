@@ -410,11 +410,31 @@
                         file_RNA: file_tumor_selected_RNA, pvalue: pvalue, foldchange: foldchange,
                         contrasts: idxContrasts, geneSelected: geneSelected}, function(data) {
 
-                        if(idxAnalysis == 4) {
+                        var infoAnalysisHTML = '<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>miRNA Seq:</b> '+file_tumor_selected_miRNA.slice(0, -20)+'</li><li><b>RNA Seq:</b> '+file_tumor_selected_RNA.slice(0, -20)+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul>'
+
+                        if(data.emptyDF == "1") {
+                            //stampare la heatmap
+                            $(".printHeatmap").removeAttr("style")
+                            $('.imgHeatmap').html('').prepend('<img src="../static/images/no_image.png" />')
+
+                            //stampare info dell'analisi + lista geni
+                            $(".printListGenes").removeAttr("style")
+                            $(".infoAnalysis").html('').prepend(infoAnalysisHTML)
+
+                            //nascondo il div per il boxplot
+                            $('.optionBoxplot').attr('style', 'visibility: hidden;');
+
+                            //nascondo il div dell'img del boxplot
+                            $('.printBoxplot').attr('style', 'visibility: hidden;');
+
+                            //resetto il gene per il boxplot
+                            geneSelected = ''
+                            $('#idListGenes').find('option').remove().end()
+
                             swal({
-                                title: '<i>MITHrIL</i>',
-                                type: 'success',
-                                html: 'Il file di input per <b>MITHrIL</b>, è stato generato con successo!',
+                                title: '<i>Analisi</i> <u>completata</u>',
+                                type: 'warning',
+                                html: 'L\'analisi appena eseguita, non ha riscontrato nessun gene differenzialmente espresso!',
                                 showCloseButton: true,
                                 showCancelButton: false,
                                 showConfirmButton: true,
@@ -422,41 +442,54 @@
                                 allowEscapeKey: false
                             })
                         } else {
-                            if(idxAnalysis == 1 || idxAnalysis == 2) {
-                                //disattivare il bottone avvia analisi
-                                $('.analysis_1').prop("disabled", true);
-                                $('select[name=typeTumor]').prop('disabled', 'disabled');
-                                $('select[name=file_miRNA_seq], select[name=file_RNA_seq]').prop('disabled', 'disabled');
+                            if(idxAnalysis == 4) {
+                                swal({
+                                    title: '<i>MITHrIL</i>',
+                                    type: 'success',
+                                    html: 'Il file di input per <b>MITHrIL</b>, è stato generato con successo!',
+                                    showCloseButton: true,
+                                    showCancelButton: false,
+                                    showConfirmButton: true,
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false
+                                })
+                            } else {
+                                if(idxAnalysis == 1 || idxAnalysis == 2) {
+                                    //disattivare il bottone avvia analisi
+                                    $('.analysis_1').prop("disabled", true);
+                                    $('select[name=typeTumor]').prop('disabled', 'disabled');
+                                    $('select[name=file_miRNA_seq], select[name=file_RNA_seq]').prop('disabled', 'disabled');
 
-                                //aggiungere le 5 scelte di stadio tumorale se è thym
-                                addStageTumor(idxTumor)
+                                    //aggiungere le 5 scelte di stadio tumorale se è thym
+                                    addStageTumor(idxTumor)
 
-                                //aggiungere tutti i geni nella lista
-                                $('#idListGenes').html(data.listGene)
+                                    //aggiungere tutti i geni nella lista
+                                    $('#idListGenes').html(data.listGene)
 
-                                //abilitare opzioni e boxplot come div
-                                $(".optionAnalysis").removeAttr("style")
-                                $(".optionBoxplot").removeAttr("style")
+                                    //abilitare opzioni e boxplot come div
+                                    $(".optionAnalysis").removeAttr("style")
+                                    $(".optionBoxplot").removeAttr("style")
 
-                                //stampare la heatmap
-                                $(".printHeatmap").removeAttr("style")
-                                $('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+ arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_heatmap.jpg?dummy='+jQuery.now()+'" />')
+                                    //stampare la heatmap
+                                    $(".printHeatmap").removeAttr("style")
+                                    $('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+ arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_heatmap.jpg?dummy='+jQuery.now()+'" />')
 
-                                //stampare info dell'analisi + lista geni
-                                $(".printListGenes").removeAttr("style")
-                                $(".infoAnalysis").html('').prepend('<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>miRNA Seq:</b> '+file_tumor_selected_miRNA.slice(0, -20)+'</li><li><b>RNA Seq:</b> '+file_tumor_selected_RNA.slice(0, -20)+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul><hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr />'+data.AllListGene)
+                                    //stampare info dell'analisi + lista geni
+                                    $(".printListGenes").removeAttr("style")
+                                    $(".infoAnalysis").html('').prepend(infoAnalysisHTML+'<hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr /><div id="" style="overflow:scroll; height:180px;">'+data.AllListGene+"</div>")
 
-                                //nascondo il div per il boxplot
-                                $('.printBoxplot').attr('style', 'visibility: hidden;');
-                            } else if(idxAnalysis == 3){
-                                //stampare il boxplot
-                                $(".printBoxplot").removeAttr("style")
-                                console.log(jQuery.now())
-                                $('.imgBoxplot').html('').prepend('<img src="../static/tempAnalysis/' + arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_' + geneSelected + '_boxplot.jpg?dummy='+jQuery.now()+'" />')
+                                    //nascondo il div per il boxplot
+                                    $('.printBoxplot').attr('style', 'visibility: hidden;');
+                                } else if(idxAnalysis == 3) {
+                                    //stampare il boxplot
+                                    $(".printBoxplot").removeAttr("style")
+                                    //console.log(jQuery.now())
+                                    $('.imgBoxplot').html('').prepend('<img src="../static/tempAnalysis/' + arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_' + geneSelected + '_boxplot.jpg?dummy='+jQuery.now()+'" />')
+                                }
+
+                                $("html, body").removeClass("swal2-shown")
+                                $(".swal2-container").remove();
                             }
-
-                            $("html, body").removeClass("swal2-shown")
-                            $(".swal2-container").remove();
                         }
                     }, "json");
                 } else {
@@ -476,16 +509,16 @@
 			    $('#idTypeContrasts').find('option').remove().end()
 
 			    switch (idxTumor) {
-                        case "0":
-                            contrasts_selected = thym_contrasts
-                            break;
-                        case "1":
-                            contrasts_selected = thca_contrasts
-                            break;
-                        case "2":
-                            contrasts_selected = lihc_contrasts
-                            break;
-                    }
+					case "0":
+						contrasts_selected = thym_contrasts
+						break;
+					case "1":
+						contrasts_selected = thca_contrasts
+						break;
+					case "2":
+						contrasts_selected = lihc_contrasts
+						break;
+                }
 
                 for (var i = 0; i < contrasts_selected.length; i++) {
 					$('#idTypeContrasts').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>')
