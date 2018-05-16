@@ -82,7 +82,7 @@
 		                            <!-- Credit Card -->
 		                            <div id="pay-invoice">
 		                                <div class="card-body card-block">
-		                                    <div class="card-title">
+		                                    <!--<div class="card-title">
 		                                        <h4 class="text-center">Seleziona una tipologia di tumore ed avvia la tua analisi!</h4>
 		                                    </div>
 		                                    <hr>
@@ -98,13 +98,13 @@
 		                                                <option value="">Seleziona...</option>
 		                                                <option value="0">Thymoma (THYM)</option>
 		                                                <option value="1">Thyroid Carcinoma (THCA)</option>
-		                                                <option value="2">Sarcoma (SARC)</option>
-		                                                <option value="3">Liver Hepatocellular Carcinoma (LIHC)</option>
+		                                                <!--<option value="2">Sarcoma (SARC)</option>-->
+		                                                <option value="2">Liver Hepatocellular Carcinoma (LIHC)</option>
 		                                            </select>
 		                                        </div>
 		                                    </div>
 
-		                                    <div class="row form-group">
+		                                    <!--<div class="row form-group">
 		                                        <div class="col-12 col-md-12">
 		                                            <label class="form-control-label">Opzioni:</label>
 		                                        </div>
@@ -118,7 +118,7 @@
 		                                                </label>
 		                                            </div>
 		                                        </div>
-		                                    </div>
+		                                    </div>-->
 		                                    <div class="row form-group">
 		                                        <div class="col-12 col-md-12">
 		                                            <label class="form-control-label">Contrasti</label></div>
@@ -175,16 +175,18 @@
 		<script>
 		var idxTumor = "";
 
-		var arrTumor = ['THYM', 'THCA', 'SARC', 'LIHC']
+		var arrTumor = ['THYM', 'THCA', 'LIHC']
 		var contrasts_selected = ''
 
 		var thym_contrasts = ['S2a vs S1', 'S2b vs S2a', 'S3 vs S2b', 'S4a vs S3', 'S4b vs S4a']
+		var thca_contrasts = ['S2 vs S1', 'S3 vs S2', 'S4 vs S3', 'S4a vs S4', 'S4c vs S4a']
+		var lihc_contrasts = ['S2 vs S1', 'S3 vs S2', 'S3a vs S3', 'S3b vs S3a', 'S3c vs S3b','S4 vs S3c','S4a vs S4', 'S4b vs S4a']
+
 
 		$(function() {
 		    $('select[name=typeTumor]').on('change', function() {
 		        idxTumor = this.value;
 		        addStageTumor(idxTumor);
-
 		    });
 		});
 
@@ -193,9 +195,9 @@
 			var outputPertubationsFile = "output_mithril_pertubations_";
 			var outputFile =  "output_mithril_";
 
-			nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
-			outputPertubationsFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
-			outputFile += arrTumor[$('select[name=typeTumor]').val()]+"_"+$('.form-check-input:checked').val()+"_";
+			nameFile += arrTumor[$('select[name=typeTumor]').val()]+"_";
+			outputPertubationsFile += arrTumor[$('select[name=typeTumor]').val()]+"_";
+			outputFile += arrTumor[$('select[name=typeTumor]').val()]+"_";
 
 			if ($('#inline-checkbox4').is(":checked")) {
 				nameFile += "0_";
@@ -206,6 +208,10 @@
 			nameFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
 			outputPertubationsFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
 			outputFile += (parseInt($( "#idContrast option:selected" ).val())+1)+".txt";
+
+			console.log('nameFile:', nameFile)
+			console.log('outputPertubationsFile:', outputPertubationsFile)
+			console.log('outputFile:', outputFile)
 
 			swal({
 			    title: '<i>Analisi</i> <u>avviata</u>',
@@ -221,7 +227,7 @@
 			    }
 			})
 
-			$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
+			/*$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
 			    $("html, body").removeClass("swal2-shown")
 			    $(".swal2-container").remove();
 
@@ -239,14 +245,23 @@
 			        allowOutsideClick: false,
 			        allowEscapeKey: false
 			    })
-			}, "json");
+			}, "json");*/
 		}
 
 		function addStageTumor(idxTumor) {
 		    $('#idContrast').find('option').remove().end()
 
-		    if(idxTumor == 0)
-		        contrasts_selected = thym_contrasts;
+			switch (idxTumor) {
+				case "0":
+					contrasts_selected = thym_contrasts
+					break;
+				case "1":
+					contrasts_selected = thca_contrasts
+					break;
+				case "2":
+					contrasts_selected = lihc_contrasts
+					break;
+			}
 
 		    for (var i = 0; i < contrasts_selected.length; i++) {
 		        $('#idContrast').append('<option value="'+i+'">'+contrasts_selected[i]+'</option>');

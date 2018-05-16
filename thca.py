@@ -115,7 +115,8 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 write(json, "{7}")
     
                 de.genes <- rownames(results)
-                de.expressions <- normalized.expressions$E[de.genes,]
+                #de.expressions <- normalized.expressions$E[de.genes,]
+                de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))                
                 jpeg(file="{8}")
                 heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
                 dev.off()
