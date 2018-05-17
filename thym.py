@@ -25,7 +25,7 @@ def analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
         if({0} == 4) {{ #Creazione File di input per mithril
             load(file="{3}") 
 
-            if({4} == 0) {{
+            if({4} == "0") {{
                 for (i in 1:5) {{
                     name.file <- paste(paste("{11}", i, sep="_"), ".txt", sep="")
                     write.table(results[i], name.file, sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)
@@ -95,7 +95,6 @@ def analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 contrasts <- makeContrasts(S2a-S1, S2b-S2a, S3-S2b, S4a-S3, S4b-S4a, levels=design.original)
                 contrasts.model <- eBayes(contrasts.fit(limma.model, contrasts))
                 
-                save.image(file="{3}")
             }} else if({0} == 2) {{ #Analisi per l'estrazione dei biomarcatori (Custom)
                 load(file="{3}") 
             }}
@@ -113,13 +112,17 @@ def analysisTHYM(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 #cat(x) #serve a stamparlo
                 write(json, "{7}")
                 
-                de.genes <- rownames(results)
-                #de.expressions <- normalized.expressions$E[de.genes,]
-                de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))
-                jpeg(file="{8}")
-                heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
-                dev.off()
+                if(nrow(results)) {{ #evito di stampare la heatmap, se il dataframe result è composto di una sola riga
+                    de.genes <- rownames(results)
+                    #de.expressions <- normalized.expressions$E[de.genes,]
+                    de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))
+                    jpeg(file="{8}")
+                    heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
+                    dev.off()
+                }}
             }}
+            
+            save.image(file="{3}")
         }}
         '''.format(idxAnalysis, path_file_miRNA, path_file_RNA, name_file_rdata, contrasts, pvalue,
                    foldchange, name_file_json, name_file_heatmap, geneSelected, name_file_boxplot, name_file_mithril_1, name_file_mithril_2))

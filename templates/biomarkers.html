@@ -410,7 +410,8 @@
                         file_RNA: file_tumor_selected_RNA, pvalue: pvalue, foldchange: foldchange,
                         contrasts: idxContrasts, geneSelected: geneSelected}, function(data) {
 
-                        var infoAnalysisHTML = '<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>miRNA Seq:</b> '+file_tumor_selected_miRNA.slice(0, -20)+'</li><li><b>RNA Seq:</b> '+file_tumor_selected_RNA.slice(0, -20)+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li><li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul>'
+                        var infoAnalysisHTML = '<ul><li><b>Tumore:</b> '+arrTumor[idxTumor]+'</li><li><b>miRNA Seq:</b> '+file_tumor_selected_miRNA.slice(0, -20)+'</li><li><b>RNA Seq:</b> '+file_tumor_selected_RNA.slice(0, -20)+'</li><li><b>P.value:</b> '+pvalue+'</li><li><b>LogFoldChange:</b> '+foldchange+'</li>'
+
 
                         if(data.emptyDF == "1") {
                             //stampare la heatmap
@@ -419,7 +420,7 @@
 
                             //stampare info dell'analisi + lista geni
                             $(".printListGenes").removeAttr("style")
-                            $(".infoAnalysis").html('').prepend(infoAnalysisHTML)
+                            $(".infoAnalysis").html('').prepend(infoAnalysisHTML+'<li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul>')
 
                             //nascondo il div per il boxplot
                             $('.optionBoxplot').attr('style', 'visibility: hidden;');
@@ -472,11 +473,20 @@
 
                                     //stampare la heatmap
                                     $(".printHeatmap").removeAttr("style")
-                                    $('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+ arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_heatmap.jpg?dummy='+jQuery.now()+'" />')
+
+                                    if(parseInt(data.nGenes) > 1)
+                                    	$('.imgHeatmap').html('').prepend('<img src="../static/tempAnalysis/'+ arrTumor[idxTumor] + '_' + pvalue + '_' + foldchange + '_' + idxContrasts + '_heatmap.jpg?dummy='+jQuery.now()+'" />')
+									else
+										$('.imgHeatmap').html('').prepend('<img src="../static/images/no_image.png" />')
+
+                                    console.log('idxContrasts_post:', idxContrasts)
+                                    console.log('contrasts_selected_post:', contrasts_selected)
+                                    console.log('contrasts_selected[idxContrasts]_post:', contrasts_selected[idxContrasts])
+
 
                                     //stampare info dell'analisi + lista geni
                                     $(".printListGenes").removeAttr("style")
-                                    $(".infoAnalysis").html('').prepend(infoAnalysisHTML+'<hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr /><div id="" style="overflow:scroll; height:180px;">'+data.AllListGene+"</div>")
+                                    $(".infoAnalysis").html('').prepend(infoAnalysisHTML+'<li><b>Contrasto:</b> '+contrasts_selected[idxContrasts]+'</li><li><b>Num. Geni:</b> '+data.nGenes+'</li></ul><hr /><center><b>File input per MITHrIL</b><button onclick="analysis(4)" class="btn btn-danger btn-xs">Genera txt: '+contrasts_selected[idxContrasts]+'</button></center><hr /><div id="" style="overflow:scroll; height:180px;">'+data.AllListGene+"</div>")
 
                                     //nascondo il div per il boxplot
                                     $('.printBoxplot').attr('style', 'visibility: hidden;');
