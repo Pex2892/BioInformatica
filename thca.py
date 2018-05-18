@@ -106,7 +106,7 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 results <- topTable(contrasts.model, coef={4}, number=nrow(df.union), adjust.method="BH", p.value={5}, lfc={6})
             }}
 
-            #print(nrow(results))
+            print(nrow(results))
 
             if(is.data.frame(results) && nrow(results)!=0) {{ 
                 json <- toJSON(results, pretty = T)
@@ -144,7 +144,7 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
             nGenes += 1
         # questo html, mi serve per inserirlo nella lista dei geni
 
-            return htmlGenes, htmlAllGenes, nGenes, 0
+        return htmlGenes, htmlAllGenes, nGenes, 0
     elif idxAnalysis == "3" or idxAnalysis == "4":  # è importante questa condizione, perchè allora causerà un errore sulla creazione del boxplot o nell'estrazione dei file di input
         return '', '', nGenes, 0
 

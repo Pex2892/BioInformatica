@@ -25,7 +25,7 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
         if({0} == 4) {{ #Creazione File di input per mithril
             load(file="{3}") 
 
-            if({4} == "0") {{
+            if({4} == 0) {{
                 for (i in 1:5) {{
                     name.file <- paste(paste("{11}", i, sep="_"), ".txt", sep="")
                     write.table(results[i], name.file, sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)
@@ -100,6 +100,7 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 contrasts <-makeContrasts(S2-S1, S3-S2, S3a-S3, S3b-S3a, S3c-S3b, S4-S3c, S4a-S4, S4b-S4a, levels=design.original)
                 contrasts.model <- eBayes(contrasts.fit(limma.model, contrasts))
                 
+                save.image(file="{3}")
             }} else if({0} == 2) {{ #Analisi per l'estrazione dei biomarcatori (Custom)
                 load(file="{3}") 
             }}
@@ -117,17 +118,13 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 #cat(x) #serve a stamparlo
                 write(json, "{7}")
                 
-                if(nrow(results)) {{ #evito di stampare la heatmap, se il dataframe result è composto di una sola riga
-                    de.genes <- rownames(results)
-                    #de.expressions <- normalized.expressions$E[de.genes,]
-                    de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))
-                    jpeg(file="{8}")
-                    heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
-                    dev.off()
-                }}
+                de.genes <- rownames(results)
+                #de.expressions <- normalized.expressions$E[de.genes,]
+                de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))                
+                jpeg(file="{8}")
+                heatmap.2(de.expressions, col=redgreen(100), scale="row", key=TRUE, symkey=FALSE, density.info="none", trace="none")
+                dev.off()
             }}
-
-            save.image(file="{3}")
         }}
         '''.format(idxAnalysis, path_file_miRNA, path_file_RNA, name_file_rdata, contrasts, pvalue,
                    foldchange, name_file_json, name_file_heatmap, geneSelected, name_file_boxplot, name_file_mithril_1, name_file_mithril_2))
@@ -147,7 +144,7 @@ def analysisLIHC(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
             nGenes += 1
         # questo html, mi serve per inserirlo nella lista dei geni
 
-            return htmlGenes, htmlAllGenes, nGenes, 0
+        return htmlGenes, htmlAllGenes, nGenes, 0
     elif idxAnalysis == "3" or idxAnalysis == "4":  # è importante questa condizione, perchè allora causerà un errore sulla creazione del boxplot o nell'estrazione dei file di input
         return '', '', nGenes, 0
 
