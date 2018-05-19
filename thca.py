@@ -25,7 +25,7 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
         if({0} == 4) {{ #Creazione File di input per mithril
             load(file="{3}") 
 
-            if({4} == "0") {{
+            if({4} == 0) {{
                 for (i in 1:5) {{
                     name.file <- paste(paste("{11}", i, sep="_"), ".txt", sep="")
                     write.table(results[i], name.file, sep="\t" ,row.names=TRUE, col.names = FALSE, quote = FALSE)
@@ -106,14 +106,14 @@ def analysisTHCA(idxAnalysis, file_miRNA, file_RNA, pvalue, foldchange, contrast
                 results <- topTable(contrasts.model, coef={4}, number=nrow(df.union), adjust.method="BH", p.value={5}, lfc={6})
             }}
 
-            print(nrow(results))
+            #print(nrow(results))
 
             if(is.data.frame(results) && nrow(results)!=0) {{ 
                 json <- toJSON(results, pretty = T)
                 #cat(x) #serve a stamparlo
                 write(json, "{7}")
     
-                if(nrow(results)) {{ #evito di stampare la heatmap, se il dataframe result è composto di una sola riga
+                if(nrow(results) > 1) {{ #evito di stampare la heatmap, se il dataframe result è composto di una sola riga
                     de.genes <- rownames(results)
                     #de.expressions <- normalized.expressions$E[de.genes,]
                     de.expressions <- matrix(as.numeric(unlist(normalized.expressions$E[de.genes,])), nrow=nrow(normalized.expressions$E[de.genes,]))

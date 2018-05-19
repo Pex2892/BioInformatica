@@ -464,7 +464,6 @@
                                     //aggiungere le 5 scelte di stadio tumorale se è thym
                                     addStageTumor(idxTumor)
 
-                                    console.log("DATA: "+data.listGene)
                                     //aggiungere tutti i geni nella lista
                                     $('#idListGenes').html(data.listGene)
 
@@ -480,10 +479,9 @@
 									else
 										$('.imgHeatmap').html('').prepend('<img src="../static/images/no_image.png" />')
 
-                                    console.log('idxContrasts_post:', idxContrasts)
+                                    /*console.log('idxContrasts_post:', idxContrasts)
                                     console.log('contrasts_selected_post:', contrasts_selected)
-                                    console.log('contrasts_selected[idxContrasts]_post:', contrasts_selected[idxContrasts])
-
+                                    console.log('contrasts_selected[idxContrasts]_post:', contrasts_selected[idxContrasts])*/
 
                                     //stampare info dell'analisi + lista geni
                                     $(".printListGenes").removeAttr("style")
