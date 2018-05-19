@@ -131,7 +131,7 @@
                             					</div>
                           					</div>
                                     		<div>
-                                      			<button id="payment-button" onclick="downloadVideo()" class="btn btn-lg btn-danger btn-block">
+                                      			<button id="payment-button" onclick="downloadDataset()" class="btn btn-lg btn-danger btn-block">
                                           			<i class="fa fa-download fa-lg"></i>&nbsp;SCARICA DATI
                                       			</button>
                                     		</div>
@@ -180,7 +180,7 @@
                 })
 			});
 
-			function downloadVideo() {
+			function downloadDataset() {
 				var b_c = $('input[name="biospecimen_clinical"]').is(":checked");
 				var rnaseq = $('input[name="rnaseq"]').is(":checked");
 				var mirnaseq = $('input[name="mirnaseq"]').is(":checked");
