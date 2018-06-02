@@ -3,6 +3,7 @@ from dataset import *
 from thym import *
 from thca import *
 from lihc import *
+import json
 import subprocess as sp
 from subprocess import Popen, PIPE, STDOUT
 
@@ -20,8 +21,8 @@ def emptyCache():
 
 if not os.path.isdir('static/tempAnalysis'):
     os.makedirs('static/tempAnalysis')
-#else:
-#    emptyCache()
+else:
+    emptyCache()
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def index():
 # ***** BIOMARKERS *****
 @app.route('/biomarkers')
 def biomarkers():
-    emptyCache()
+    #emptyCache()
     return render_template('biomarkers.html')
 
 
@@ -96,30 +97,52 @@ def process3():
 
     rootDir = os.getcwd() + os.sep
 
-    html = "<thead><tr><th># Pathway Id</th><th>Pathway Name</th><th>Raw Accumulator</th><th>Impact Factor</th><th>Probability Pi</th><th>Total Perturbation</th><th>Corrected Accumulator</th><th>pValue</th><th>Adjusted pValue</th></tr></thead><tbody>"
+    jsonHTML1 = []
+    #jsonHTML2 = []
 
     if inputFileName:
         if os.path.exists(pathtempAnalysis + inputFileName):
             try:
-                #sp.call(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
-                #         pathtempAnalysis + inputFileName, '-o', outMainFile, '-p',
-                 #        outPertubationsName]) #stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+                sp.call(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
+                         pathtempAnalysis + inputFileName, '-o', outMainFile, '-p', outPertubationsName])
 
-                p = Popen(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
-                           pathtempAnalysis + inputFileName, '-o', outMainFile, '-p', outPertubationsName])
-
-                print('value p:', p)
-                print('value p.stdout:', p.stdout)
-
-                with open(rootDir + pathtempAnalysis + inputFileName, "r") as f:
+                with open(rootDir + outMainFile, "r") as f:
                     next(f)
                     for rows in f:
                         row = rows.split("\t")
-                        html += "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td><td>" + row[2] + "</td><td>" + row[3] + "</td><td>" + row[4] + "</td><td>" + row[5] + "</td><td>" + row[6] + "</td><td>" + row[7] + "</td><td>" + row[8] + "</td></tr>"
+                        jsonTMP = {}
+                        jsonTMP['PathwayId'] = row[0]
+                        jsonTMP['PathwayName'] = row[1]
+                        jsonTMP['RawAccumulator'] = row[2]
+                        jsonTMP['ImpactFactor'] = row[3]
+                        jsonTMP['probability_pi'] = row[4]
+                        jsonTMP['total_perturbation'] = row[5]
+                        jsonTMP['corrected_accumulator'] = row[6]
+                        jsonTMP['pValue'] = row[7]
+                        jsonTMP['adjusted_pValue'] = row[8]
+                        jsonHTML1.append(jsonTMP)
 
-                    html += "</tbody>"
+                    jsonHTML1 = json.dumps(jsonHTML1)
 
-                return jsonify({'status': 1, 'type': 'success', 'tableHtml': html, 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
+                    # with open(rootDir + outPertubationsName, "r") as f:
+                    #     next(f)
+                    #     for rows in f:
+                    #         row = rows.split("\t")
+                    #         jsonTMP = {}
+                    #         jsonTMP['PathwayId'] = row[0]
+                    #         jsonTMP['PathwayName'] = row[1]
+                    #         jsonTMP['GeneId'] = row[2]
+                    #         jsonTMP['GeneName'] = row[3]
+                    #         jsonTMP['perturbation'] = row[4]
+                    #         jsonTMP['accumulator'] = row[5]
+                    #         jsonTMP['pValue'] = row[6]
+                    #         jsonHTML2.append(jsonTMP)
+                    #
+                    #     jsonHTML2 = json.dumps(jsonHTML2)
+                    #
+                    #     print(jsonHTML2)
+
+                return jsonify({'status': 1, 'type': 'success', 'tableHtml': jsonHTML1, 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
             except:
                 return jsonify({'status': 0, 'type': 'error', 'mess': 'Si è verificato un problema durante l\'esecuzione del jar'})
         else:
