@@ -221,13 +221,13 @@
 			    showCancelButton: false,
 			    showConfirmButton: false,
 			    allowOutsideClick: false,
-			    allowEscapeKey: false,
+			    allowEscapeKey: true,
 			    onOpen: () => {
 			        swal.showLoading()
 			    }
 			})
 
-			/*$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
+			$.post("/analysisMithril", {fileName: nameFile, outPertubationsName: outputPertubationsFile, outMainFile: outputFile}, function(data) {
 			    $("html, body").removeClass("swal2-shown")
 			    $(".swal2-container").remove();
 
@@ -243,9 +243,9 @@
 			        showCancelButton: false,
 			        showConfirmButton: true,
 			        allowOutsideClick: false,
-			        allowEscapeKey: false
+			        allowEscapeKey: true
 			    })
-			}, "json");*/
+			}, "json");
 		}
 
 		function addStageTumor(idxTumor) {

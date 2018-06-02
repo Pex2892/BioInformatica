@@ -4,6 +4,7 @@ from thym import *
 from thca import *
 from lihc import *
 import subprocess as sp
+from subprocess import Popen, PIPE, STDOUT
 
 # ***** SETTINGS *****
 if not os.path.isdir('datasetTCGA'):
@@ -19,8 +20,8 @@ def emptyCache():
 
 if not os.path.isdir('static/tempAnalysis'):
     os.makedirs('static/tempAnalysis')
-else:
-    emptyCache()
+#else:
+#    emptyCache()
 
 app = Flask(__name__)
 
@@ -100,9 +101,15 @@ def process3():
     if inputFileName:
         if os.path.exists(pathtempAnalysis + inputFileName):
             try:
-                sp.call(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
-                         pathtempAnalysis + inputFileName, '-o', outMainFile, '-p',
-                         outPertubationsName])  # , stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+                #sp.call(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
+                #         pathtempAnalysis + inputFileName, '-o', outMainFile, '-p',
+                 #        outPertubationsName]) #stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE)
+
+                p = Popen(['java', '-jar', rootDir + 'library/java/MITHrIL2.jar', 'merged-mithril', '-verbose', '-i',
+                           pathtempAnalysis + inputFileName, '-o', outMainFile, '-p', outPertubationsName])
+
+                print('value p:', p)
+                print('value p.stdout:', p.stdout)
 
                 with open(rootDir + pathtempAnalysis + inputFileName, "r") as f:
                     next(f)
@@ -112,7 +119,7 @@ def process3():
 
                     html += "</tbody>"
 
-                    return jsonify({'status': 1, 'type': 'success', 'tableHtml': html, 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
+                return jsonify({'status': 1, 'type': 'success', 'tableHtml': html, 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
             except:
                 return jsonify({'status': 0, 'type': 'error', 'mess': 'Si è verificato un problema durante l\'esecuzione del jar'})
         else:
@@ -122,4 +129,4 @@ def process3():
 
 
 if __name__ == '__main__':
-    app.run(port=2892, debug=True)
+    app.run(host='0.0.0.0', port=2892, debug=True)
