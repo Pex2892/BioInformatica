@@ -255,7 +255,7 @@ th a:hover {
 		        </div><!-- .content -->
 		    </div><!-- /#right-panel -->
 
-		    <!-- Right Panel --
+		    <!-- Right Panel -->
 		    <div id="right-panel2">
 		        <div class="content mt-3">
 		            <div class="animated fadeIn">
@@ -286,8 +286,8 @@ th a:hover {
 		                        </div>
 		                    </div>
 		                </div>
-		            </div><!-- .animated --
-		        </div><!-- .content --
+		            </div><!-- .animated -->
+		        </div><!-- .content -->
 		    </div><!-- /#right-panel -->
 		</div>
 
@@ -350,31 +350,36 @@ th a:hover {
 			    $("html, body").removeClass("swal2-shown")
 			    $(".swal2-container").remove();
 
-			    myRecords = JSON.parse(data.tableHtml);
-                $('#tableOutputMithril').dynatable({
-                    table: {
-                        defaultColumnIdStyle: 'camelCase'
-                    },
-                    dataset: {
-                        records: myRecords
+                $.ajax({
+                    url: '../static/tempAnalysis/mithril_output.json',
+                    success: function(data){
+                        $('#tableOutputMithril').dynatable({
+                            table: {
+                                defaultColumnIdStyle: 'camelCase'
+                            },
+                            dataset: {
+                                records: data
+                            }
+                        });
                     }
                 });
 
-
-                /*aaa = JSON.parse(data.tableHtmlP);
-                console.log("record2", data.tableHtmlP)
-
-                $('#tableOutputPertubationMithril').dynatable({
-                    table: {
-                        defaultColumnIdStyle: 'camelCase'
-                    },
-                    dataset: {
-                        records: aaa
+                $.ajax({
+                    url: '../static/tempAnalysis/mithril_pertubation.json',
+                    success: function(data){
+                        $('#tableOutputPertubationMithril').dynatable({
+                            table: {
+                                defaultColumnIdStyle: 'camelCase'
+                            },
+                            dataset: {
+                                records: data
+                            }
+                        });
                     }
-                });*/
+                });
 
 			    $(".printOutputMithril").removeAttr("style")
-			    //$(".printOutputPertubationMithril").removeAttr("style")
+			    $(".printOutputPertubationMithril").removeAttr("style")
 
 			    swal({
 			        title: '<i>MITHrIL</i>',

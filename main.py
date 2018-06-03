@@ -5,7 +5,6 @@ from thca import *
 from lihc import *
 import json
 import subprocess as sp
-from subprocess import Popen, PIPE, STDOUT
 
 # ***** SETTINGS *****
 if not os.path.isdir('datasetTCGA'):
@@ -98,7 +97,7 @@ def process3():
     rootDir = os.getcwd() + os.sep
 
     jsonHTML1 = []
-    #jsonHTML2 = []
+    jsonHTML2 = []
 
     if inputFileName:
         if os.path.exists(pathtempAnalysis + inputFileName):
@@ -122,27 +121,27 @@ def process3():
                         jsonTMP['adjusted_pValue'] = row[8]
                         jsonHTML1.append(jsonTMP)
 
-                    jsonHTML1 = json.dumps(jsonHTML1)
+                    with open(pathtempAnalysis + 'mithril_output.json', 'w') as outfile:
+                        json.dump(jsonHTML1, outfile)
 
-                    # with open(rootDir + outPertubationsName, "r") as f:
-                    #     next(f)
-                    #     for rows in f:
-                    #         row = rows.split("\t")
-                    #         jsonTMP = {}
-                    #         jsonTMP['PathwayId'] = row[0]
-                    #         jsonTMP['PathwayName'] = row[1]
-                    #         jsonTMP['GeneId'] = row[2]
-                    #         jsonTMP['GeneName'] = row[3]
-                    #         jsonTMP['perturbation'] = row[4]
-                    #         jsonTMP['accumulator'] = row[5]
-                    #         jsonTMP['pValue'] = row[6]
-                    #         jsonHTML2.append(jsonTMP)
-                    #
-                    #     jsonHTML2 = json.dumps(jsonHTML2)
-                    #
-                    #     print(jsonHTML2)
+                    with open(rootDir + outPertubationsName, "r") as f:
+                        next(f)
+                        for rows in f:
+                            row = rows.split("\t")
+                            jsonTMP2 = {}
+                            jsonTMP2['PathwayId'] = row[0]
+                            jsonTMP2['PathwayName'] = row[1]
+                            jsonTMP2['GeneId'] = row[2]
+                            jsonTMP2['GeneName'] = row[3]
+                            jsonTMP2['perturbation'] = row[4]
+                            jsonTMP2['accumulator'] = row[5]
+                            jsonTMP2['pValue'] = row[6]
+                            jsonHTML2.append(jsonTMP2)
 
-                return jsonify({'status': 1, 'type': 'success', 'tableHtml': jsonHTML1, 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
+                        with open(pathtempAnalysis + 'mithril_pertubation.json', 'w') as outfile:
+                            json.dump(jsonHTML2, outfile)
+
+                return jsonify({'status': 1, 'type': 'success', 'mess': 'I file output di <b>MITHrIL</b>, sono stati generati con successo!'})
             except:
                 return jsonify({'status': 0, 'type': 'error', 'mess': 'Si è verificato un problema durante l\'esecuzione del jar'})
         else:
