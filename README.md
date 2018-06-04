@@ -1,5 +1,6 @@
 # BioInformatica
 
-## TIMOMA
-· https://emedicine.medscape.com/article/1999313-overview (Descrizione stadio e tipologia del timoma)
-· https://wiki.nci.nih.gov/display/TCGA/Working+with+TCGA+Data (Descrizione TCGA Dato)
+## DATASET 
+Il dataset è stato caricato su google drive, dovuto al non funzionamento di "TCGA-Assembler 2".
+Il dataset va inserito nella root del progetto.
+https://drive.google.com/open?id=1IwAZY_fAvx-6M9Wy4OXbaTVzOwBpmQGZ
